@@ -17,13 +17,13 @@ function setActiveNav(){
     if(href === path) a.classList.add("active");
   });
 }
-
 function safe(val){ return (val ?? "").toString(); }
 
 function renderMiniEvent(e){
   const areaName = byId(VERRE_DATA.areas, e.area)?.name || e.area;
   const thumb = e.flyerUrl ? `<img src="${e.flyerUrl}" alt="flyer">` : `<div>${safe(e.area).toUpperCase()}</div>`;
   const lineupText = (e.lineup && e.lineup.length) ? e.lineup.join(", ") : "TBA";
+
   return `
     <a class="item" href="event.html?id=${encodeURIComponent(e.id)}">
       <div class="thumb">${thumb}</div>
@@ -41,10 +41,9 @@ function renderMiniEvent(e){
 
 function renderMiniArtist(a){
   const initials = a.name.split(" ").map(w=>w[0]).slice(0,2).join("").toUpperCase();
-  const thumb = `<div>${initials}</div>`;
   return `
     <a class="item" href="artist.html?id=${encodeURIComponent(a.id)}">
-      <div class="thumb">${thumb}</div>
+      <div class="thumb"><div>${initials}</div></div>
       <div class="info">
         <p class="title">${safe(a.name)}</p>
         <p class="sub">${safe(a.blurb)}</p>
@@ -213,23 +212,6 @@ function mountArtistDetail(){
         <div class="list">
           ${upcoming.length ? upcoming.map(renderMiniEvent).join("") : `<p class="sub">No tracked events yet for this artist.</p>`}
         </div>
-
-        ${(a.relatedPosts || []).length ? `
-          <hr class="sep">
-          <h3 style="margin:0 0 10px; font-size:14px; color:var(--muted); letter-spacing:.08em; text-transform:uppercase;">VERRE Archive References</h3>
-          <div class="list">
-            ${(a.relatedPosts || []).map(p=>`
-              <a class="item" href="${p.url}">
-                <div class="thumb"><div>POST</div></div>
-                <div class="info">
-                  <p class="title">${safe(p.label)}</p>
-                  <p class="sub">Open reference</p>
-                </div>
-              </a>
-            `).join("")}
-          </div>
-        ` : ""}
-
       </div>
       <div class="ft">Last updated: ${VERRE_DATA.lastUpdated}</div>
     </div>
