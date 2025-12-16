@@ -7,9 +7,15 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body data-page="artists">
+  <div class="flag-corner tl" aria-hidden="true"></div>
+  <div class="flag-corner br" aria-hidden="true"></div>
+
   <div class="topbar">
     <div class="nav">
-      <a class="brand" href="index.html"><span class="mark"></span><span class="name">VERRE</span><span class="tag">scene archive</span></a>
+      <a class="brand" href="index.html" aria-label="VERRE home">
+        <img class="logo" src="assets/brand/verre.png" alt="VERRE logo" />
+        <span class="tag">scene archive</span>
+      </a>
       <div class="menu">
         <a href="events.html">Events</a>
         <a href="artists.html">Artists</a>
@@ -21,7 +27,7 @@
   <div class="wrap">
     <div class="hero">
       <h1>Artist Index</h1>
-      <p>Tracked artists + their upcoming shows (as we find them). Last updated: <strong id="lastUpdated"></strong></p>
+      <p>Tracked artists + links + any events you’ve logged. Last updated: <strong id="lastUpdated"></strong></p>
       <div class="meta tools">
         <div class="search">
           <input id="q" type="search" placeholder="Search: name, tag, sound…" />
@@ -33,7 +39,7 @@
     <div class="card">
       <div class="hd">
         <h2>Artists</h2>
-        <span class="pill">Click an artist for tracked shows + links</span>
+        <span class="pill">Click an artist for links + tracked events</span>
       </div>
       <div class="bd">
         <div class="list" id="artistsList"></div>
@@ -41,7 +47,7 @@
     </div>
 
     <div class="footer">
-      <div>Want to add an artist? Send: name + link + next show flyer.</div>
+      <div>Want to add an artist? Send: name + link + next show flyer/source.</div>
       <div><a class="smalllink" href="index.html">Home</a></div>
     </div>
   </div>
