@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>VERRE — Events</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body data-page="events">
+  <div class="topbar">
+    <div class="nav">
+      <a class="brand" href="index.html"><span class="mark"></span><span class="name">VERRE</span><span class="tag">scene archive</span></a>
+      <div class="menu">
+        <a href="events.html">Events</a>
+        <a href="artists.html">Artists</a>
+        <a href="press.html">Press</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="hero">
+      <h1>Events</h1>
+      <p>Browse by area, search by artist/venue, and track what’s next. Last updated: <strong id="lastUpdated"></strong></p>
+      <div class="meta tools">
+        <div class="search">
+          <input id="q" type="search" placeholder="Search: artist, venue, event…" />
+          <select id="areaFilter"></select>
+        </div>
+        <a class="btn" href="press.html">Request media coverage</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="hd">
+        <h2>Event list</h2>
+        <span class="pill">VERRE attending = coverage planned</span>
+      </div>
+      <div class="bd">
+        <div class="list" id="eventsList"></div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div>Submit event flyers: DM @VERRE or email from Press page.</div>
+      <div><a class="smalllink" href="index.html">Home</a></div>
+    </div>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

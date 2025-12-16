@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>VERRE — Scene Archive + Event Map</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body data-page="home">
+  <div class="topbar">
+    <div class="nav">
+      <a class="brand" href="index.html">
+        <span class="mark"></span>
+        <span class="name">VERRE</span>
+        <span class="tag">scene archive</span>
+      </a>
+      <div class="menu">
+        <a href="events.html">Events</a>
+        <a href="artists.html">Artists</a>
+        <a href="press.html">Press</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="hero">
+      <h1>Underground event map + archive.</h1>
+      <p>VERRE tracks sets, flyers, and scene moments across LA + SoCal. If it’s real, it gets logged.</p>
+      <div class="meta">
+        <span class="pill">Last updated: <strong id="lastUpdated"></strong></span>
+        <a class="btn primary" href="events.html">Browse events</a>
+        <a class="btn" href="artists.html">Artist index</a>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <div class="hd">
+          <h2>Upcoming events</h2>
+          <a class="btn" href="events.html">View all</a>
+        </div>
+        <div class="bd">
+          <div class="list" id="homeEvents"></div>
+        </div>
+        <div class="ft">Tip: events marked “VERRE ATTENDING” are the ones we’re covering.</div>
+      </div>
+
+      <div class="card">
+        <div class="hd">
+          <h2>Artist index (tracked)</h2>
+          <a class="btn" href="artists.html">View all</a>
+        </div>
+        <div class="bd">
+          <div class="list" id="homeArtists"></div>
+        </div>
+        <div class="ft">Want an artist added? DM @VERRE with a link + next show.</div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div>© VERRE • Archive-first • No spam • No paywalls (yet)</div>
+      <div>
+        <a class="smalllink" href="press.html">Media inquiries</a>
+        &nbsp;•&nbsp;
+        <a class="smalllink" href="events.html">Events</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
