@@ -3,15 +3,18 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>VERRE — Scene Archive + Event Map</title>
+  <title>VERRE — SoCal Scene Map</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body data-page="home">
+  <!-- Flag corners: keep off for now (CSS display:none) -->
+  <div class="flag-corner tl" aria-hidden="true"></div>
+  <div class="flag-corner br" aria-hidden="true"></div>
+
   <div class="topbar">
     <div class="nav">
-      <a class="brand" href="index.html">
-        <span class="mark"></span>
-        <span class="name">VERRE</span>
+      <a class="brand" href="index.html" aria-label="VERRE home">
+        <img class="logo" src="assets/brand/verre.png" alt="VERRE logo" />
         <span class="tag">scene archive</span>
       </a>
       <div class="menu">
@@ -24,8 +27,8 @@
 
   <div class="wrap">
     <div class="hero">
-      <h1>Underground event map + archive.</h1>
-      <p>VERRE is building a SoCal scene index—events, flyers, and artist links in one place.</p>
+      <h1>SoCal underground event map + archive.</h1>
+      <p>VERRE tracks events, flyers, and artist links. Accuracy over hype.</p>
       <div class="meta">
         <span class="pill">Last updated: <strong id="lastUpdated"></strong></span>
         <a class="btn primary" href="events.html">Browse events</a>
@@ -58,9 +61,9 @@
     </div>
 
     <div class="footer">
-      <div>© VERRE • Archive-first • Accuracy > hype</div>
+      <div>© VERRE • Archive-first • USA theme</div>
       <div>
-        <a class="smalllink" href="press.html">Media / submissions</a>
+        <a class="smalllink" href="press.html">Submissions</a>
         &nbsp;•&nbsp;
         <a class="smalllink" href="events.html">Events</a>
       </div>
