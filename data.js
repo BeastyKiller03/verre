@@ -1,9 +1,10 @@
 // data.js
 // VERRE = tracking / archival right now (no "attending" claims).
-// Update lastUpdated whenever you change anything.
+// Add events only when you have at least: title + date + area + a source link.
 
 window.VERRE_DATA = {
   lastUpdated: "2025-12-16",
+
   areas: [
     { id: "la", name: "Los Angeles" },
     { id: "ocie", name: "OC / IE" },
@@ -38,9 +39,7 @@ window.VERRE_DATA = {
       id: "10cust",
       name: "10cust",
       tags: ["deconstructed", "bass", "club"],
-      links: {
-        instagram: "https://instagram.com/"
-      },
+      links: { instagram: "https://instagram.com/" },
       blurb: "Tight percussion + weird textures built for dark rooms.",
       relatedPosts: []
     },
@@ -48,19 +47,14 @@ window.VERRE_DATA = {
       id: "damon-r",
       name: "Damon R.",
       tags: ["dj", "electro", "indie-club"],
-      links: {
-        instagram: "https://instagram.com/"
-      },
+      links: { instagram: "https://instagram.com/" },
       blurb: "Connector energy—sets that feel like a timeline of the scene.",
       relatedPosts: []
     }
   ],
 
-  // IMPORTANT:
-  // If you don't have confirmed event info yet, leave events empty.
-  // Add events only when you have at least: title + date + area + a source link.
   events: [
-    // Example template (copy/paste and fill when ready):
+    // Add real events later. Template:
     // {
     //   id: "unique-slug-001",
     //   title: "Event Name",
@@ -70,10 +64,10 @@ window.VERRE_DATA = {
     //   venue: "Venue / Promoter",
     //   address: "Optional (or 'DM for location')",
     //   ticketUrl: "https://...",
-    //   sourceUrl: "https://instagram.com/p/...", // where you got the info
+    //   sourceUrl: "https://instagram.com/p/...", // where info came from
     //   flyerUrl: "", // optional local path later like "assets/flyers/xxx.jpg"
     //   lineup: ["Artist 1", "Artist 2"],
-    //   verreAttending: false, // keep false until you truly are attending
+    //   verreAttending: false,
     //   notes: "Optional notes."
     // }
   ]
