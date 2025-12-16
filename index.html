@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -6,71 +7,20 @@
   <title>VERRE — SoCal Scene Map</title>
   <link rel="stylesheet" href="style.css" />
 </head>
-<body data-page="home">
-  <!-- Flag corners: keep off for now (CSS display:none) -->
-  <div class="flag-corner tl" aria-hidden="true"></div>
-  <div class="flag-corner br" aria-hidden="true"></div>
-
+<body>
   <div class="topbar">
     <div class="nav">
-      <a class="brand" href="index.html" aria-label="VERRE home">
-        <img class="logo" src="assets/brand/verre.png" alt="VERRE logo" />
+      <a class="brand" href="index.html">
+        <!-- BIGGER LOGO TEST (index only) -->
+        <img class="logo" src="assets/brand/verre.png" alt="VERRE logo" style="height:52px" />
         <span class="tag">scene archive</span>
       </a>
-      <div class="menu">
-        <a href="events.html">Events</a>
-        <a href="artists.html">Artists</a>
-        <a href="press.html">Press</a>
-      </div>
     </div>
   </div>
 
-  <div class="wrap">
-    <div class="hero">
-      <h1>SoCal underground event map + archive.</h1>
-      <p>VERRE tracks events, flyers, and artist links. Accuracy over hype.</p>
-      <div class="meta">
-        <span class="pill">Last updated: <strong id="lastUpdated"></strong></span>
-        <a class="btn primary" href="events.html">Browse events</a>
-        <a class="btn" href="artists.html">Artist index</a>
-      </div>
-    </div>
-
-    <div class="grid">
-      <div class="card">
-        <div class="hd">
-          <h2>Upcoming (tracked)</h2>
-          <a class="btn" href="events.html">View all</a>
-        </div>
-        <div class="bd">
-          <div class="list" id="homeEvents"></div>
-        </div>
-        <div class="ft">Tracking only for now. Coverage will be labeled if/when confirmed.</div>
-      </div>
-
-      <div class="card">
-        <div class="hd">
-          <h2>Artist index</h2>
-          <a class="btn" href="artists.html">View all</a>
-        </div>
-        <div class="bd">
-          <div class="list" id="homeArtists"></div>
-        </div>
-        <div class="ft">Want an artist added? DM @VERRE with a link + next show flyer/source.</div>
-      </div>
-    </div>
-
-    <div class="footer">
-      <div>© VERRE • Archive-first • USA theme</div>
-      <div>
-        <a class="smalllink" href="press.html">Submissions</a>
-        &nbsp;•&nbsp;
-        <a class="smalllink" href="events.html">Events</a>
-      </div>
-    </div>
-  </div>
-
-  <script src="data.js"></script>
-  <script src="app.js"></script>
+  <main style="padding:24px;">
+    <h1>Homepage logo size test</h1>
+    <p>If this feels right, we can move the size into style.css later.</p>
+  </main>
 </body>
 </html>
