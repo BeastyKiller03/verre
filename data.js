@@ -1,5 +1,6 @@
 // data.js
-// Replace placeholder links + flyers with real ones as you build.
+// VERRE = tracking / archival right now (no "attending" claims).
+// Update lastUpdated whenever you change anything.
 
 window.VERRE_DATA = {
   lastUpdated: "2025-12-16",
@@ -8,6 +9,7 @@ window.VERRE_DATA = {
     { id: "ocie", name: "OC / IE" },
     { id: "sd", name: "San Diego" }
   ],
+
   artists: [
     {
       id: "susy-sheer",
@@ -19,63 +21,60 @@ window.VERRE_DATA = {
         spotify: "https://open.spotify.com/"
       },
       blurb: "SoCal underground energy—sharp synths, pop-adjacent club pressure.",
-      relatedPosts: [
-        { label: "VERRE post: early set clip", url: "#" }
-      ]
+      relatedPosts: []
     },
     {
       id: "mgna-crrrta",
       name: "MGNA CRRRTA",
       tags: ["hyper", "alt", "experimental"],
-      links: { instagram: "https://instagram.com/", soundcloud: "https://soundcloud.com/" },
-      blurb: "Scene-favorite distortion and chaos—high color, high impact.",
-      relatedPosts: [{ label: "VERRE post: flyer breakdown", url: "#" }]
+      links: {
+        instagram: "https://instagram.com/",
+        soundcloud: "https://soundcloud.com/"
+      },
+      blurb: "Distortion-forward sets with a chaos/pop edge—scene favorite.",
+      relatedPosts: []
     },
     {
       id: "10cust",
       name: "10cust",
       tags: ["deconstructed", "bass", "club"],
-      links: { instagram: "https://instagram.com/" },
-      blurb: "Tight percussion + weird textures—built for dark rooms.",
+      links: {
+        instagram: "https://instagram.com/"
+      },
+      blurb: "Tight percussion + weird textures built for dark rooms.",
       relatedPosts: []
     },
     {
       id: "damon-r",
       name: "Damon R.",
       tags: ["dj", "electro", "indie-club"],
-      links: { instagram: "https://instagram.com/" },
-      blurb: "Connector-artist energy—sets that feel like a timeline of the scene.",
+      links: {
+        instagram: "https://instagram.com/"
+      },
+      blurb: "Connector energy—sets that feel like a timeline of the scene.",
       relatedPosts: []
     }
   ],
+
+  // IMPORTANT:
+  // If you don't have confirmed event info yet, leave events empty.
+  // Add events only when you have at least: title + date + area + a source link.
   events: [
-    {
-      id: "neon-bunker-001",
-      title: "Neon Bunker 001",
-      date: "2026-01-10",
-      time: "10:00 PM",
-      area: "la",
-      venue: "Warehouse (DTLA)",
-      address: "Location released day-of",
-      ticketUrl: "#",
-      flyerUrl: "",
-      lineup: ["MGNA CRRRTA", "10cust"],
-      verreAttending: true,
-      notes: "Bring earplugs. Location is usually sent via text blast."
-    },
-    {
-      id: "oc-afterhours-017",
-      title: "OC Afterhours 017",
-      date: "2026-01-17",
-      time: "11:30 PM",
-      area: "ocie",
-      venue: "Undisclosed (Santa Ana)",
-      address: "DM for address",
-      ticketUrl: "#",
-      flyerUrl: "",
-      lineup: ["Susy Sheer", "Damon R."],
-      verreAttending: false,
-      notes: "Doors usually strict. Arrive early."
-    }
+    // Example template (copy/paste and fill when ready):
+    // {
+    //   id: "unique-slug-001",
+    //   title: "Event Name",
+    //   date: "2026-01-10",
+    //   time: "10:00 PM",
+    //   area: "la",
+    //   venue: "Venue / Promoter",
+    //   address: "Optional (or 'DM for location')",
+    //   ticketUrl: "https://...",
+    //   sourceUrl: "https://instagram.com/p/...", // where you got the info
+    //   flyerUrl: "", // optional local path later like "assets/flyers/xxx.jpg"
+    //   lineup: ["Artist 1", "Artist 2"],
+    //   verreAttending: false, // keep false until you truly are attending
+    //   notes: "Optional notes."
+    // }
   ]
 };
