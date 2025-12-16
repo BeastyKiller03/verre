@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>VERRE — Event</title>
+  <title>VERRE — Events</title>
   <link rel="stylesheet" href="style.css" />
 </head>
-<body data-page="event">
+<body data-page="events">
   <div class="topbar">
     <div class="nav">
       <a class="brand" href="index.html"><span class="mark"></span><span class="name">VERRE</span><span class="tag">scene archive</span></a>
@@ -19,10 +19,31 @@
   </div>
 
   <div class="wrap">
-    <div id="detail"></div>
+    <div class="hero">
+      <h1>Events (tracked)</h1>
+      <p>Browse by area, search by artist/venue, and follow the SoCal timeline. Last updated: <strong id="lastUpdated"></strong></p>
+      <div class="meta tools">
+        <div class="search">
+          <input id="q" type="search" placeholder="Search: artist, venue, event…" />
+          <select id="areaFilter"></select>
+        </div>
+        <a class="btn" href="press.html">Submit an event</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="hd">
+        <h2>Event list</h2>
+        <span class="pill">We only post events we can source.</span>
+      </div>
+      <div class="bd">
+        <div class="list" id="eventsList"></div>
+      </div>
+    </div>
+
     <div class="footer">
-      <div><a class="smalllink" href="events.html">← Back to events</a></div>
-      <div><a class="smalllink" href="press.html">Media inquiries</a></div>
+      <div>Submit flyers: include date + area + lineup + source link.</div>
+      <div><a class="smalllink" href="index.html">Home</a></div>
     </div>
   </div>
 
