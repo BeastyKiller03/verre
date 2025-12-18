@@ -31,6 +31,7 @@ function fmtDate(iso) {
   return d.toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" });
 }
 
+/* ✅ Active nav works on list + detail pages */
 function setActiveNav() {
   const page = (document.body.getAttribute("data-page") || "").toLowerCase();
   document.querySelectorAll(".menu a").forEach(a => {
@@ -39,6 +40,7 @@ function setActiveNav() {
       ((page === "events" || page === "event") && href.includes("events")) ||
       ((page === "artists" || page === "artist") && href.includes("artists")) ||
       (page === "press" && href.includes("press"));
+    if (isActive) a.classList.add("active");
   });
 }
 
@@ -52,9 +54,7 @@ function setLastUpdated() {
 function getUpcomingEvents() {
   const now = new Date();
   const events = (window.VERRE_DATA?.events || []).slice();
-  // Sort by date asc
   events.sort((a, b) => (a.date || "").localeCompare(b.date || ""));
-  // Keep upcoming + today
   return events.filter(e => {
     if (!e.date) return true;
     const d = new Date(`${e.date}T00:00:00`);
@@ -69,11 +69,7 @@ function eventAreaName(e) {
 
 function artistMatchesSearch(a, q) {
   if (!q) return true;
-  const hay = [
-    a.name,
-    ...(a.tags || []),
-    a.blurb
-  ].join(" ").toLowerCase();
+  const hay = [a.name, ...(a.tags || []), a.blurb].join(" ").toLowerCase();
   return hay.includes(q.toLowerCase());
 }
 
@@ -135,7 +131,6 @@ function renderArtistRow(a) {
 function mountHome() {
   setLastUpdated();
 
-  // Upcoming events preview
   const homeEvents = $("#homeEvents");
   if (homeEvents) {
     const upcoming = getUpcomingEvents().slice(0, 5);
@@ -144,7 +139,6 @@ function mountHome() {
       : `<p class="sub">No events listed yet. VERRE is building the map now.</p>`;
   }
 
-  // Artists preview
   const homeArtists = $("#homeArtists");
   if (homeArtists) {
     const artists = (window.VERRE_DATA?.artists || []).slice()
@@ -219,13 +213,12 @@ function mountArtistDetail() {
     return;
   }
 
-  // Find events where this artist appears in lineup (case-insensitive)
   const events = (window.VERRE_DATA?.events || []).filter(e =>
     (e.lineup || []).some(n => n.toLowerCase() === a.name.toLowerCase())
   ).sort((x, y) => (x.date || "").localeCompare(y.date || ""));
 
-  const linksRow = `
-    <div class="row" style="margin-top:0;">
+  const actions = `
+    <div class="row" style="margin-top:0">
       ${a.links?.instagram ? `<a class="btn primary" href="${a.links.instagram}" target="_blank" rel="noopener">Instagram</a>` : ""}
       <a class="btn" href="artists.html">Back to artists</a>
     </div>
@@ -251,7 +244,7 @@ function mountArtistDetail() {
           </div>
 
           <div style="flex:0 0 auto; min-width:220px;">
-            ${linksRow}
+            ${actions}
           </div>
         </div>
 
@@ -271,17 +264,23 @@ function mountArtistDetail() {
   `;
 }
 
-/* ✅ CLEAN EVENT DETAIL LAYOUT */
+/* ✅ CLEAN EVENT DETAIL (no duplicates) + DJ tag near title */
 function mountEventDetail(){
   const id = qs("id");
   const e = (window.VERRE_DATA?.events || []).find(x => x.id === id);
   const root = $("#detail");
 
   if (!root) return;
-  if(!e){ root.innerHTML = `<p class="sub">Event not found.</p>`; return; }
+  if(!e){
+    root.innerHTML = `<p class="sub">Event not found.</p>`;
+    return;
+  }
 
   const areaName = eventAreaName(e);
   const lineup = (e.lineup && e.lineup.length) ? e.lineup : [];
+
+  // DJ tag heuristic: show DJ tag if notes include "DJ"
+  const isDJ = (e.notes || "").toLowerCase().includes("dj");
 
   const actions = `
     <div class="row" style="margin-top:0">
@@ -291,13 +290,14 @@ function mountEventDetail(){
     </div>
   `;
 
-  // Link lineup chips to artist pages where possible
   const linkedLineup = lineup.map(name=>{
-    const artist = (window.VERRE_DATA?.artists || []).find(a => a.name.toLowerCase() === name.toLowerCase());
+    const artist = (window.VERRE_DATA?.artists || []).find(
+      a => a.name.toLowerCase() === name.toLowerCase()
+    );
     return artist
       ? `<a class="chip" href="artist.html?id=${encodeURIComponent(artist.id)}">${safe(name)}</a>`
       : `<span class="chip">${safe(name)}</span>`;
-  }).join(" "); // <-- fixes squished chips
+  }).join(" ");
 
   root.innerHTML = `
     <div class="card">
@@ -307,12 +307,16 @@ function mountEventDetail(){
       </div>
 
       <div class="bd">
-        <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:12px; flex-wrap:wrap;">
-          <div style="min-width:240px; flex:1;">
-            <h1 style="margin:0 0 6px; font-size:28px; line-height:1.1;">
-              ${safe(e.title)}
-            </h1>
-            <p class="sub" style="margin:0;">
+        <div style="display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap;">
+          <div style="flex:1; min-width:260px;">
+            <div style="display:flex; align-items:flex-start; gap:10px; flex-wrap:wrap;">
+              <h1 style="margin:0; font-size:28px; line-height:1.15;">
+                ${safe(e.title)}
+              </h1>
+              ${isDJ ? `<span class="chip">DJ</span>` : ``}
+            </div>
+
+            <p class="sub" style="margin:6px 0 0;">
               ${fmtDate(e.date)}${e.time ? ` • ${safe(e.time)}` : ""} • ${safe(areaName)}
             </p>
           </div>
@@ -324,31 +328,35 @@ function mountEventDetail(){
 
         <hr class="sep">
 
-        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:14px;">
-          <div>
-            <dl class="kv">
-              <dt>Venue</dt><dd>${safe(e.venue) || "—"}</dd>
-              <dt>Address</dt><dd>${safe(e.address) || "—"}</dd>
-              <dt>Area</dt><dd>${safe(areaName)}</dd>
-              <dt>Date</dt><dd>${fmtDate(e.date)}${e.time ? ` • ${safe(e.time)}` : ""}</dd>
-            </dl>
-          </div>
+        <dl class="kv">
+          <dt>Venue</dt>
+          <dd>${safe(e.venue) || "—"}</dd>
 
-          <div>
-            <dl class="kv">
-              <dt>Lineup</dt><dd>${lineup.length ? safe(lineup.join(", ")) : "TBA"}</dd>
-              <dt>Notes</dt><dd>${safe(e.notes) || "—"}</dd>
-              <dt>Tickets</dt><dd>${e.ticketUrl ? `<a class="smalllink" href="${e.ticketUrl}" target="_blank" rel="noopener">Open tickets</a>` : "—"}</dd>
-              <dt>Source</dt><dd>${e.sourceUrl ? `<a class="smalllink" href="${e.sourceUrl}" target="_blank" rel="noopener">Open source</a>` : "—"}</dd>
-            </dl>
-          </div>
-        </div>
+          <dt>Address</dt>
+          <dd>${safe(e.address) || "—"}</dd>
+
+          <dt>Tickets</dt>
+          <dd>${e.ticketUrl ? `<a class="smalllink" href="${e.ticketUrl}" target="_blank" rel="noopener">Open tickets</a>` : "—"}</dd>
+
+          <dt>Source</dt>
+          <dd>${e.sourceUrl ? `<a class="smalllink" href="${e.sourceUrl}" target="_blank" rel="noopener">Open source</a>` : "—"}</dd>
+
+          <dt>Notes</dt>
+          <dd>${safe(e.notes) || "—"}</dd>
+        </dl>
 
         <hr class="sep">
 
-        <h3 style="margin:0 0 10px; font-size:14px; color:var(--muted); letter-spacing:.08em; text-transform:uppercase;">
+        <h3 style="
+          margin:0 0 10px;
+          font-size:14px;
+          color:var(--muted);
+          letter-spacing:.08em;
+          text-transform:uppercase;
+        ">
           Lineup
         </h3>
+
         <div class="row" style="margin-top:0;">
           ${lineup.length ? linkedLineup : `<span class="sub">TBA</span>`}
         </div>
@@ -363,7 +371,6 @@ function mountEventDetail(){
 
 function boot(){
   setActiveNav();
-
   const page = (document.body.getAttribute("data-page") || "").toLowerCase();
 
   if (page === "home") return mountHome();
@@ -371,7 +378,7 @@ function boot(){
   if (page === "artists") return mountArtistsList();
   if (page === "artist") return mountArtistDetail();
   if (page === "event") return mountEventDetail();
-  // press page can stay static (no JS required)
+  // press page can stay static
 }
 
 document.addEventListener("DOMContentLoaded", boot);
