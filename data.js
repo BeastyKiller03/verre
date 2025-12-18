@@ -1,7 +1,7 @@
 // data.js
 // VERRE = tracking / archival platform.
-// We do NOT claim attendance unless explicitly marked.
-// Only add events with real sources or ticket links.
+// No attendance claims unless explicitly marked.
+// Events require real sources or ticket links.
 
 window.VERRE_DATA = {
   lastUpdated: "2025-12-16",
@@ -137,6 +137,54 @@ window.VERRE_DATA = {
       relatedPosts: []
     },
     {
+      id: "atl-grandma",
+      name: "ATL Grandma",
+      tags: ["underground", "dj", "scene"],
+      links: { instagram: "https://www.instagram.com/atlgrandma/" },
+      blurb: "DIY club presence tied to underground circuits and regional scenes.",
+      relatedPosts: []
+    },
+    {
+      id: "perto",
+      name: "Perto",
+      tags: ["underground", "electronic", "experimental"],
+      links: { instagram: "https://www.instagram.com/iamperto/" },
+      blurb: "Underground electronic project with club-forward crossover energy.",
+      relatedPosts: []
+    },
+    {
+      id: "kimj",
+      name: "kimj",
+      tags: ["dj", "club", "experimental"],
+      links: { instagram: "https://www.instagram.com/youngkimj/" },
+      blurb: "DJ/producer appearing across underground and hybrid club lineups.",
+      relatedPosts: []
+    },
+    {
+      id: "extra-small",
+      name: "Extra Small",
+      tags: ["electronic", "underground", "dj"],
+      links: { instagram: "https://www.instagram.com/extrsmll/" },
+      blurb: "DIY electronic project with low-profile underground reach.",
+      relatedPosts: []
+    },
+    {
+      id: "effie",
+      name: "Effie",
+      tags: ["electroclash", "club", "icon"],
+      links: { instagram: "https://www.instagram.com/effi3e/" },
+      blurb: "Electroclash-era icon whose influence still echoes in modern club spaces.",
+      relatedPosts: []
+    },
+    {
+      id: "the-deep",
+      name: "The Deep",
+      tags: ["underground", "electronic", "collective"],
+      links: { instagram: "https://www.instagram.com/thedeeeep/" },
+      blurb: "Underground electronic project/collective with scene-driven presence.",
+      relatedPosts: []
+    },
+    {
       id: "sebii",
       name: "SEBii",
       tags: ["hyperpop", "emo", "internet"],
@@ -158,6 +206,14 @@ window.VERRE_DATA = {
       tags: ["hyperpop", "shoegaze", "experimental"],
       links: { instagram: "https://www.instagram.com/janeremover/" },
       blurb: "Genre-defying artist moving between hyperpop, emo, and shoegaze.",
+      relatedPosts: []
+    },
+    {
+      id: "tommy-fleece",
+      name: "Tommy Fleece",
+      tags: ["indie", "alt", "scene"],
+      links: { instagram: "https://www.instagram.com/tommysfleece/" },
+      blurb: "Alt-indie songwriter orbiting the current NY/LA crossover scene.",
       relatedPosts: []
     }
   ],
