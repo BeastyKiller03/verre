@@ -43,7 +43,7 @@ img{max-width:100%; display:block}
   min-width: 0;
 }
 .brand .logo{
-  height:28px;
+  height:44px;            /* default visible size */
   width:auto;
   display:block;
 }
@@ -248,8 +248,23 @@ hr.sep{border:none; border-top:1px solid var(--line); margin:16px 0}
 .flag-corner.tl{top:0; left:0;}
 .flag-corner.br{bottom:0; right:0;}
 
-/* Later, when you add images, you will:
-.flag-corner{display:block;}
-.flag-corner.tl{ background-image:url("assets/brand/flag-tl.png"); }
-.flag-corner.br{ background-image:url("assets/brand/flag-br.png"); }
-*/
+/* --- MOBILE NAV FIX: keep logo visible without wrapping menu --- */
+@media (max-width: 520px) {
+  .brand{
+    flex: 1 1 auto;
+    max-width: 48%;
+  }
+  .brand .logo{
+    height: 40px;      /* tweak 38–44px if you want */
+    max-width: 100%;
+    object-fit: contain;
+  }
+  .menu{
+    flex: 0 0 auto;
+    gap: 8px;
+  }
+  .menu a{
+    padding: 7px 9px;
+    font-size: 13px;
+  }
+}
