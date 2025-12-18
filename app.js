@@ -264,7 +264,7 @@ function mountArtistDetail() {
   `;
 }
 
-/* ✅ CLEAN EVENT DETAIL (no duplicates) + DJ tag near title */
+/* ✅ HERO-ONLY EVENT DETAIL (no meta dump) + DJ tag */
 function mountEventDetail(){
   const id = qs("id");
   const e = (window.VERRE_DATA?.events || []).find(x => x.id === id);
@@ -278,7 +278,6 @@ function mountEventDetail(){
 
   const areaName = eventAreaName(e);
   const lineup = (e.lineup && e.lineup.length) ? e.lineup : [];
-
   const isDJ = (e.notes || "").toLowerCase().includes("dj");
 
   const actions = `
@@ -306,13 +305,10 @@ function mountEventDetail(){
       </div>
 
       <div class="bd">
-        <!-- HERO -->
         <div style="display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap;">
           <div style="flex:1; min-width:260px;">
             <div style="display:flex; align-items:flex-start; gap:10px; flex-wrap:wrap;">
-              <h1 style="margin:0;">
-                ${safe(e.title)}
-              </h1>
+              <h1 style="margin:0;">${safe(e.title)}</h1>
               ${isDJ ? `<span class="chip">DJ</span>` : ``}
             </div>
 
@@ -330,62 +326,13 @@ function mountEventDetail(){
 
         ${lineup.length ? `
           <hr class="sep">
-
-          <h3 style="
-            margin:0 0 10px;
-            font-size:14px;
-            color:var(--muted);
-            letter-spacing:.08em;
-            text-transform:uppercase;
-          ">
+          <h3 style="margin:0 0 10px; font-size:14px; color:var(--muted); letter-spacing:.08em; text-transform:uppercase;">
             Lineup
           </h3>
-
           <div class="row" style="margin-top:0;">
             ${linkedLineup}
           </div>
         ` : ``}
-      </div>
-
-      <div class="ft">Last updated: ${safe(window.VERRE_DATA?.lastUpdated || "")}</div>
-    </div>
-  `;
-}
-
-        <hr class="sep">
-
-        <dl class="kv">
-          <dt>Venue</dt>
-          <dd>${safe(e.venue) || "—"}</dd>
-
-          <dt>Address</dt>
-          <dd>${safe(e.address) || "—"}</dd>
-
-          <dt>Tickets</dt>
-          <dd>${e.ticketUrl ? `<a class="smalllink" href="${e.ticketUrl}" target="_blank" rel="noopener">Open tickets</a>` : "—"}</dd>
-
-          <dt>Source</dt>
-          <dd>${e.sourceUrl ? `<a class="smalllink" href="${e.sourceUrl}" target="_blank" rel="noopener">Open source</a>` : "—"}</dd>
-
-          <dt>Notes</dt>
-          <dd>${safe(e.notes) || "—"}</dd>
-        </dl>
-
-        <hr class="sep">
-
-        <h3 style="
-          margin:0 0 10px;
-          font-size:14px;
-          color:var(--muted);
-          letter-spacing:.08em;
-          text-transform:uppercase;
-        ">
-          Lineup
-        </h3>
-
-        <div class="row" style="margin-top:0;">
-          ${lineup.length ? linkedLineup : `<span class="sub">TBA</span>`}
-        </div>
       </div>
 
       <div class="ft">Last updated: ${safe(window.VERRE_DATA?.lastUpdated || "")}</div>
