@@ -279,7 +279,6 @@ function mountEventDetail(){
   const areaName = eventAreaName(e);
   const lineup = (e.lineup && e.lineup.length) ? e.lineup : [];
 
-  // DJ tag heuristic: show DJ tag if notes include "DJ"
   const isDJ = (e.notes || "").toLowerCase().includes("dj");
 
   const actions = `
@@ -307,24 +306,51 @@ function mountEventDetail(){
       </div>
 
       <div class="bd">
-        <div style="display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap;">
+        <!-- HERO -->
+        <div style="display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap;">
           <div style="flex:1; min-width:260px;">
             <div style="display:flex; align-items:flex-start; gap:10px; flex-wrap:wrap;">
-              <h1 style="margin:0; font-size:28px; line-height:1.15;">
+              <h1 style="margin:0;">
                 ${safe(e.title)}
               </h1>
               ${isDJ ? `<span class="chip">DJ</span>` : ``}
             </div>
 
-            <p class="sub" style="margin:6px 0 0;">
+            <p class="sub" style="margin:8px 0 0;">
               ${fmtDate(e.date)}${e.time ? ` • ${safe(e.time)}` : ""} • ${safe(areaName)}
             </p>
+
+            ${e.venue ? `<p class="sub" style="margin:6px 0 0; opacity:.9;">${safe(e.venue)}</p>` : ``}
           </div>
 
           <div style="flex:0 0 auto; min-width:220px;">
             ${actions}
           </div>
         </div>
+
+        ${lineup.length ? `
+          <hr class="sep">
+
+          <h3 style="
+            margin:0 0 10px;
+            font-size:14px;
+            color:var(--muted);
+            letter-spacing:.08em;
+            text-transform:uppercase;
+          ">
+            Lineup
+          </h3>
+
+          <div class="row" style="margin-top:0;">
+            ${linkedLineup}
+          </div>
+        ` : ``}
+      </div>
+
+      <div class="ft">Last updated: ${safe(window.VERRE_DATA?.lastUpdated || "")}</div>
+    </div>
+  `;
+}
 
         <hr class="sep">
 
