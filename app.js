@@ -36,10 +36,9 @@ function setActiveNav() {
   document.querySelectorAll(".menu a").forEach(a => {
     const href = (a.getAttribute("href") || "").toLowerCase();
     const isActive =
-      (page === "events" && href.includes("events")) ||
-      (page === "artists" && href.includes("artists")) ||
+      ((page === "events" || page === "event") && href.includes("events")) ||
+      ((page === "artists" || page === "artist") && href.includes("artists")) ||
       (page === "press" && href.includes("press"));
-    if (isActive) a.classList.add("active");
   });
 }
 
