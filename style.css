@@ -315,17 +315,34 @@ input[type="search"]{min-width:240px}
 ========================= */
 .flag-corner{
   position:fixed;
-  width:120px;
-  height:120px;
+  width:140px;
+  height:140px;
   pointer-events:none;
-  opacity:0.95;
-  z-index:5;
-  background-size:cover;
+  z-index:4;
+  background-size:contain;
   background-repeat:no-repeat;
-  display:none; /* enable later */
+  opacity:0.9;
 }
-.flag-corner.tl{top:0; left:0;}
-.flag-corner.br{bottom:0; right:0;}
+
+.flag-corner.tl{
+  top:0;
+  left:0;
+  background-image:url("assets/brand/flag-corner-tl.png");
+}
+
+.flag-corner.br{
+  bottom:0;
+  right:0;
+  background-image:url("assets/brand/flag-corner-br.png");
+}
+
+@media (max-width: 520px){
+  .flag-corner{
+    width:90px;
+    height:90px;
+    opacity:0.85;
+  }
+}
 
 /* ==========================================================
    EVENT PAGE — DICE-STYLE HERO LOOK (body[data-page="event"])
