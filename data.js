@@ -4,7 +4,7 @@
 // Events require real sources or ticket links.
 
 window.VERRE_DATA = {
-  lastUpdated: "2025-12-16",
+  lastUpdated: "2025-12-19",
 
   /* ---------- AREAS ---------- */
   areas: [
@@ -17,11 +17,15 @@ window.VERRE_DATA = {
   /* ---------- ARTISTS ---------- */
   artists: [
     {
-      id: "susy-sheer",
-      name: "Susy Sheer",
+      id: "suzy-sheer",
+      name: "Suzy Sheer",
       tags: ["electro", "club", "underground"],
-      links: { instagram: "https://www.instagram.com/susysheer/" },
-      blurb: "SoCal underground energy—sharp synths and pop-adjacent club pressure.",
+      links: { instagram: "https://www.instagram.com/boysinblush/" },
+      blurb: "LA underground DJ presence—dark, fast, and built for after-hours rooms.",
+      origin: "Los Angeles, California",
+      background:
+        "Underground club/after-hours selector with a strong visual identity and fashion-adjacent nightlife overlap.",
+      image: "assets/artists/artist-suzy-sheer.jpg",
       relatedPosts: []
     },
     {
@@ -29,7 +33,11 @@ window.VERRE_DATA = {
       name: "MGNA CRRRTA",
       tags: ["hyper", "alt", "experimental"],
       links: { instagram: "https://www.instagram.com/mgnacrrrta/" },
-      blurb: "Distortion-forward sets with a chaos-pop edge—scene favorite.",
+      blurb: "Distortion-forward sets with a chaos-pop edge—warehouse pressure and hard transitions.",
+      origin: "Berlin, Germany",
+      background:
+        "Berlin-rooted underground club energy; often adjacent to DIY rave ecosystems and art-forward lineups.",
+      image: "assets/artists/artist-mgna-crrrta.jpg",
       relatedPosts: []
     },
     {
@@ -37,15 +45,23 @@ window.VERRE_DATA = {
       name: "10cust",
       tags: ["deconstructed", "bass", "club"],
       links: { instagram: "https://www.instagram.com/10cust/" },
-      blurb: "Tight percussion and dark textures built for club rooms.",
+      blurb: "Harsh, metallic club pressure built for warehouse rooms—fast and physical.",
+      origin: "Berlin, Germany",
+      background:
+        "Underground rave/warehouse lean; more word-of-mouth than mainstream, with high-intensity DJ sets.",
+      image: "assets/artists/artist-10cust.jpg",
       relatedPosts: []
     },
     {
       id: "damon-r",
       name: "Damon R.",
       tags: ["dj", "electro", "indie-club"],
-      links: { instagram: "https://www.instagram.com/damonr__/" },
-      blurb: "Connector energy—sets that feel like a timeline of the scene.",
+      links: { instagram: "https://www.instagram.com/damonrsh/" },
+      blurb: "Emotional tension meets club pressure—distorted dance rhythms with melodic bite.",
+      origin: "Los Angeles, California",
+      background:
+        "Hybrid DJ/producer energy; shows up on underground lineups bridging club momentum and pop-adjacent sound design.",
+      image: "assets/artists/artist-damon-r.jpg",
       relatedPosts: []
     },
     {
@@ -54,6 +70,10 @@ window.VERRE_DATA = {
       tags: ["indie sleaze", "electro", "club"],
       links: { instagram: "https://www.instagram.com/thehellp/" },
       blurb: "Indie-sleaze revival pressure with club energy and sharp visuals.",
+      origin: "Los Angeles, California",
+      background:
+        "Cult-following sleaze-era aesthetics; their orbit overlaps with alternative nightlife and after-parties as much as formal shows.",
+      image: "assets/artists/artist-the-hellp.jpg",
       relatedPosts: []
     },
     {
@@ -77,7 +97,11 @@ window.VERRE_DATA = {
       name: "underscores",
       tags: ["hyperpop", "pop-punk", "alt"],
       links: { instagram: "https://www.instagram.com/underscores/" },
-      blurb: "Genre-bending songwriter with a strong DIY and community pull.",
+      blurb: "Sincere songwriting fused with club-ready production—DIY room gravity with loud emotion.",
+      origin: "San Francisco Bay Area",
+      background:
+        "Internet-native rise; blurs live-set energy and DJ intensity with community-first DIY appeal.",
+      image: "assets/artists/artist-underscores.jpg",
       relatedPosts: []
     },
     {
@@ -86,6 +110,10 @@ window.VERRE_DATA = {
       tags: ["hyperpop", "electro", "chaos"],
       links: { instagram: "https://www.instagram.com/thefrostchildren/" },
       blurb: "Sibling duo channeling rave chaos, glitch-pop, and internet energy.",
+      origin: "St. Louis, Missouri → New York City",
+      background:
+        "Maximalist club-pop chaos; sets feel like pop DJ parties turned inside out—fast, loud, unpredictable.",
+      image: "assets/artists/artist-frost-children.jpg",
       relatedPosts: []
     },
     {
@@ -108,16 +136,24 @@ window.VERRE_DATA = {
       id: "umru",
       name: "umru",
       tags: ["hyperpop", "club", "dj"],
-      links: { instagram: "https://www.instagram.com/umru_/" },
-      blurb: "Hyperpop architect with club-rooted DJ sets and maximalist energy.",
+      links: { instagram: "https://www.instagram.com/umru/" },
+      blurb: "Hyperpop architect with club-rooted DJ sets—rapid transitions and high-BPM pressure.",
+      origin: "New York City",
+      background:
+        "Key bridge between hyperpop and underground club; producer brain with DJ-room aggression.",
+      image: "assets/artists/artist-umru.jpg",
       relatedPosts: []
     },
     {
       id: "petal-supply",
       name: "Petal Supply",
       tags: ["hyperpop", "dj", "internet"],
-      links: { instagram: "https://www.instagram.com/petalsupply/" },
-      blurb: "Internet-era producer bridging pop melody and club pressure.",
+      links: { instagram: "https://www.instagram.com/petalsupplyco/" },
+      blurb: "Internet-era producer blending pop melody and club pressure—scene-native and DIY-coded.",
+      origin: "United States (internet-native)",
+      background:
+        "Hyperpop-forward producer world with playful textures and hard emotional punch; built from internet communities and DIY releases.",
+      image: "assets/artists/artist-petal-supply.jpg",
       relatedPosts: []
     },
     {
@@ -125,15 +161,23 @@ window.VERRE_DATA = {
       name: "Ninajirachi",
       tags: ["club", "hyperpop", "electronic"],
       links: { instagram: "https://www.instagram.com/ninajirachi/" },
-      blurb: "Club-forward producer blending pop precision and rave energy.",
+      blurb: "Emotional electronic built for late-night momentum—melodic edges with club structure.",
+      origin: "Central Coast, Australia",
+      background:
+        "Moves between intimate rooms and bigger electronic stages; after-hours friendly energy and clean-but-punchy production.",
+      image: "assets/artists/artist-ninajirachi.jpg",
       relatedPosts: []
     },
     {
       id: "the-dare",
       name: "The Dare",
       tags: ["indie sleaze", "dance-punk", "club"],
-      links: { instagram: "https://www.instagram.com/thedare/" },
-      blurb: "NYC dance-punk chaos fueling the sleaze revival.",
+      links: { instagram: "https://www.instagram.com/itsthedare/" },
+      blurb: "Indie sleaze reboot for the club—sharp, cheeky, and built for sweaty rooms.",
+      origin: "New York City",
+      background:
+        "A key thread in the newer NYC nightlife wave where DJ nights feel like bands again.",
+      image: "assets/artists/artist-the-dare.jpg",
       relatedPosts: []
     },
     {
@@ -188,16 +232,24 @@ window.VERRE_DATA = {
       id: "sebii",
       name: "SEBii",
       tags: ["hyperpop", "emo", "internet"],
-      links: { instagram: "https://www.instagram.com/sebii.jpg/" },
-      blurb: "Internet-native hyperpop voice with heavy youth pull.",
+      links: { instagram: "https://www.instagram.com/sebseb122/" },
+      blurb: "High-energy internet rap/hyperpop crossover—elastic flows and bright chaos.",
+      origin: "United States",
+      background:
+        "Internet-native rise with heavy youth pull; lives in the same ecosystem as modern underground hyperpop nights.",
+      image: "assets/artists/artist-sebii.jpg",
       relatedPosts: []
     },
     {
       id: "alice-glass",
       name: "Alice Glass",
       tags: ["electronic", "punk", "icon"],
-      links: { instagram: "https://www.instagram.com/aliceglass/" },
-      blurb: "Electronic punk icon bridging early internet chaos and modern club energy.",
+      links: { instagram: "https://www.instagram.com/_alice_glass/" },
+      blurb: "Electronic punk icon bridging blog-era chaos and modern club energy.",
+      origin: "Toronto, Canada",
+      background:
+        "High-voltage industrial-pop attitude with goth/club edges; legacy energy still maps onto modern underground nights.",
+      image: "assets/artists/artist-alice-glass.jpg",
       relatedPosts: []
     },
     {
@@ -214,6 +266,32 @@ window.VERRE_DATA = {
       tags: ["indie", "alt", "scene"],
       links: { instagram: "https://www.instagram.com/tommysfleece/" },
       blurb: "Alt-indie songwriter orbiting the current NY/LA crossover scene.",
+      relatedPosts: []
+    },
+
+    /* --- ADDED --- */
+    {
+      id: "charli-xcx",
+      name: "Charli XCX",
+      tags: ["hyperpop", "pop", "club-culture"],
+      links: { instagram: "https://www.instagram.com/charli_xcx/" },
+      blurb: "A bridge between mainstream pop and underground club experimentation—scene-shaping influence.",
+      origin: "Cambridge, England",
+      background:
+        "Closely tied to the hyperpop lineage through collaborations and taste; amplified club-adjacent sounds into global pop culture.",
+      image: "assets/artists/artist-charli-xcx.jpg",
+      relatedPosts: []
+    },
+    {
+      id: "sophie",
+      name: "SOPHIE",
+      tags: ["legacy", "avant-club", "sound-design"],
+      links: { instagram: "https://www.instagram.com/sophmsmsmsm/" },
+      blurb: "Foundational architect of modern avant-club and experimental pop—tactile, sculptural sound design.",
+      origin: "Glasgow, Scotland",
+      background:
+        "Defined a blueprint for modern experimental pop/club sound; her influence runs through today’s hyperpop and underground electronic scenes.",
+      image: "assets/artists/artist-sophie.jpg",
       relatedPosts: []
     }
   ],
