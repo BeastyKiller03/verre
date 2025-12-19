@@ -310,7 +310,7 @@ input[type="search"]{min-width:240px}
 }
 
 /* Mobile nav keeps logo visible, prevents wrap */
-@media (max-width: 150px){
+@media (max-width: 160px){
   .nav{gap:10px;}
   .brand{flex:1 1 auto; max-width:30%; gap:8px;}
   .brand .logo{height:auto;}
