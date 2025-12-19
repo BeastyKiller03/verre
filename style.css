@@ -78,15 +78,6 @@ img{max-width:100%; display:block}
   width:auto;
   display:block;
 }
-.brand .tag{
-  color:var(--muted);
-  font-size:12px;
-  font-family:var(--mono);
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
-  max-width:42vw;
-}
 
 .menu{
   display:flex;
