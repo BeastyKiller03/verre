@@ -313,16 +313,21 @@ input[type="search"]{min-width:240px}
 /* =========================
    FLAG CORNERS (OFF FOR NOW)
 ========================= */
+/* Flag corners */
 .flag-corner{
   position:fixed;
   width:140px;
   height:140px;
   pointer-events:none;
-  z-index:4;
+  opacity:0.9;
   background-size:contain;
   background-repeat:no-repeat;
-  opacity:0.9;
+  display:block;
 }
+
+/* Desktop: overlap the topbar */
+.flag-corner{ z-index: 999; }              /* above topbar */
+.topbar{ z-index: 50; }
 
 .flag-corner.tl{
   top:0;
@@ -336,11 +341,23 @@ input[type="search"]{min-width:240px}
   background-image:url("assets/brand/flag-corner-br.png");
 }
 
+/* Mobile: keep flag from covering the VERRE logo */
 @media (max-width: 520px){
   .flag-corner{
     width:90px;
     height:90px;
     opacity:0.85;
+    z-index: 1;            /* behind topbar + logo */
+  }
+
+  .topbar{
+    z-index: 50;           /* stays above */
+  }
+
+  /* Optional: nudge the top-left corner slightly OUT so it never touches logo */
+  .flag-corner.tl{
+    top:-6px;
+    left:-6px;
   }
 }
 
