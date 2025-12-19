@@ -74,7 +74,7 @@ img{max-width:100%; display:block}
   min-width:0;
 }
 .brand .logo{
-  height:10px;             /* desktop default */
+  height:40px;             /* desktop default */
   width:auto;
   display:block;
 }
