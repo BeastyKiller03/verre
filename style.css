@@ -74,8 +74,8 @@ img{max-width:100%; display:block}
   min-width:0;
 }
 .brand .logo{
-  height:150px;             /* desktop default */
-  width:150px;
+  height:auto;             /* desktop default */
+  width:60;
   display:block;
 }
 .brand .tag{
