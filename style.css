@@ -310,9 +310,9 @@ input[type="search"]{min-width:240px}
 }
 
 /* Mobile nav keeps logo visible, prevents wrap */
-@media (max-width: 520px){
+@media (max-width: 150px){
   .nav{gap:10px;}
-  .brand{flex:1 1 auto; max-width:44%; gap:8px;}
+  .brand{flex:1 1 auto; max-width:30%; gap:8px;}
   .brand .logo{height:auto;}
   .brand .tag{display:none;}
   .menu{flex:0 0 auto; gap:6px; flex-wrap:nowrap;}
