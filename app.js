@@ -67,9 +67,24 @@ function eventAreaName(e) {
   return area?.name || e.area || "";
 }
 
+/* ---- NEW: artist image resolver (supports relative paths or full URLs) ---- */
+function getArtistImageSrc(a) {
+  const src = a?.image || a?.imageUrl || a?.photo || "";
+  if (!src) return "";
+  // Allow absolute URLs or relative paths (e.g., "assets/artists/artist-xxx.jpg")
+  return String(src);
+}
+
+/* ---- NEW: more robust artist search across new fields ---- */
 function artistMatchesSearch(a, q) {
   if (!q) return true;
-  const hay = [a.name, ...(a.tags || []), a.blurb].join(" ").toLowerCase();
+  const hay = [
+    a.name,
+    a.origin,
+    a.background,
+    ...(a.tags || []),
+    a.blurb
+  ].join(" ").toLowerCase();
   return hay.includes(q.toLowerCase());
 }
 
@@ -107,11 +122,20 @@ function renderEventRow(e) {
   `;
 }
 
+/* ---- UPDATED: artist rows now show image thumbs when available ---- */
 function renderArtistRow(a) {
   const tags = (a.tags || []).slice(0, 4);
+  const img = getArtistImageSrc(a);
+
+  const thumb = img
+    ? `<img src="${safe(img)}" alt="${safe(a.name)}" loading="lazy" style="width:100%; height:100%; object-fit:cover; border-radius:12px;" />`
+    : `ARTIST`;
+
   return `
     <div class="item">
-      <div class="thumb">ARTIST</div>
+      <div class="thumb" style="overflow:hidden;">
+        ${thumb}
+      </div>
       <div class="info">
         <div class="title">
           <a href="artist.html?id=${encodeURIComponent(a.id)}">${safe(a.name)}</a>
@@ -119,7 +143,7 @@ function renderArtistRow(a) {
         <p class="sub">${safe(a.blurb || "")}</p>
         <div class="row">
           ${tags.map(t => `<span class="chip">${safe(t)}</span>`).join("")}
-          ${a.links?.instagram ? `<a class="chip" href="${a.links.instagram}" target="_blank" rel="noopener">Instagram</a>` : ""}
+          ${a.links?.instagram ? `<a class="chip" href="${safe(a.links.instagram)}" target="_blank" rel="noopener">Instagram</a>` : ""}
         </div>
       </div>
     </div>
@@ -200,6 +224,7 @@ function mountArtistsList() {
   paint();
 }
 
+/* ---- UPDATED: Artist detail now shows image + origin + background ---- */
 function mountArtistDetail() {
   setLastUpdated();
 
@@ -217,12 +242,19 @@ function mountArtistDetail() {
     (e.lineup || []).some(n => n.toLowerCase() === a.name.toLowerCase())
   ).sort((x, y) => (x.date || "").localeCompare(y.date || ""));
 
+  const img = getArtistImageSrc(a);
+
   const actions = `
     <div class="row" style="margin-top:0">
-      ${a.links?.instagram ? `<a class="btn primary" href="${a.links.instagram}" target="_blank" rel="noopener">Instagram</a>` : ""}
+      ${a.links?.instagram ? `<a class="btn primary" href="${safe(a.links.instagram)}" target="_blank" rel="noopener">Instagram</a>` : ""}
       <a class="btn" href="artists.html">Back to artists</a>
     </div>
   `;
+
+  const metaChips = [
+    ...(a.origin ? [`<span class="chip">${safe(a.origin)}</span>`] : []),
+    ...(a.tags || []).map(t => `<span class="chip">${safe(t)}</span>`)
+  ].join("");
 
   root.innerHTML = `
     <div class="card">
@@ -232,14 +264,33 @@ function mountArtistDetail() {
       </div>
 
       <div class="bd">
-        <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:12px; flex-wrap:wrap;">
-          <div style="min-width:240px; flex:1;">
-            <h1 style="margin:0 0 6px; font-size:28px; line-height:1.1;">
-              ${safe(a.name)}
-            </h1>
-            <p class="sub" style="margin:0;">${safe(a.blurb || "")}</p>
-            <div class="row">
-              ${(a.tags || []).map(t => `<span class="chip">${safe(t)}</span>`).join("")}
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:16px; flex-wrap:wrap;">
+          <div style="display:flex; gap:14px; align-items:flex-start; min-width:260px; flex:1;">
+            ${
+              img
+                ? `<div style="width:96px; height:96px; border-radius:14px; overflow:hidden; background:rgba(0,0,0,.04); flex:0 0 auto;">
+                    <img src="${safe(img)}" alt="${safe(a.name)}" style="width:100%; height:100%; object-fit:cover;" />
+                   </div>`
+                : ``
+            }
+
+            <div style="min-width:220px; flex:1;">
+              <h1 style="margin:0 0 6px; font-size:28px; line-height:1.1;">
+                ${safe(a.name)}
+              </h1>
+              <p class="sub" style="margin:0;">${safe(a.blurb || "")}</p>
+
+              <div class="row">
+                ${metaChips}
+              </div>
+
+              ${
+                a.background
+                  ? `<p class="sub" style="margin:10px 0 0; opacity:.95;">
+                      ${safe(a.background)}
+                     </p>`
+                  : ``
+              }
             </div>
           </div>
 
@@ -280,10 +331,14 @@ function mountEventDetail(){
   const lineup = (e.lineup && e.lineup.length) ? e.lineup : [];
   const isDJ = (e.notes || "").toLowerCase().includes("dj");
 
+  /* NOTE:
+     Leaving these buttons as-is so your site stays flexible.
+     If you want "no ticket links" at all, just don’t set `ticketUrl` in data.js.
+  */
   const actions = `
     <div class="row" style="margin-top:0">
-      ${e.ticketUrl ? `<a class="btn primary" href="${e.ticketUrl}" target="_blank" rel="noopener">Tickets</a>` : ""}
-      ${e.sourceUrl ? `<a class="btn" href="${e.sourceUrl}" target="_blank" rel="noopener">Source</a>` : ""}
+      ${e.ticketUrl ? `<a class="btn primary" href="${safe(e.ticketUrl)}" target="_blank" rel="noopener">Tickets</a>` : ""}
+      ${e.sourceUrl ? `<a class="btn" href="${safe(e.sourceUrl)}" target="_blank" rel="noopener">Source</a>` : ""}
       <a class="btn" href="events.html">Back to events</a>
     </div>
   `;
