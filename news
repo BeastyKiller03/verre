@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VERRE — News</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body data-page="news">
+
+  <header class="top-bar">
+    <div class="top-corner-title">
+      <a href="index.html">VERRE</a>
+    </div>
+
+    <nav class="menu">
+      <a href="events.html">Events</a>
+      <a href="artists.html">Artists</a>
+      <a href="news.html">News</a>
+      <a href="press.html">Press</a>
+    </nav>
+  </header>
+
+  <main class="wrap">
+    <div class="card">
+      <div class="hd">
+        <h2>News</h2>
+        <span class="chip">latest</span>
+      </div>
+
+      <div class="bd">
+        <div class="row" style="margin-top:0;">
+          <input id="newsSearch" class="input" placeholder="Search news…" />
+        </div>
+
+        <div id="newsList" class="list"></div>
+      </div>
+
+      <div class="ft">Last updated: <span id="lastUpdated"></span></div>
+    </div>
+  </main>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
