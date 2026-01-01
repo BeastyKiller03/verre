@@ -3,6 +3,7 @@
    - Home (index.html)
    - Events list (events.html)
    - Artists list (artists.html)
+   - News feed (news.html)
    - Event detail (event.html?id=...)
    - Artist detail (artist.html?id=...)
 */
@@ -39,6 +40,7 @@ function setActiveNav() {
     const isActive =
       ((page === "events" || page === "event") && href.includes("events")) ||
       ((page === "artists" || page === "artist") && href.includes("artists")) ||
+      (page === "news" && href.includes("news")) ||
       (page === "press" && href.includes("press"));
     if (isActive) a.classList.add("active");
   });
@@ -67,15 +69,22 @@ function eventAreaName(e) {
   return area?.name || e.area || "";
 }
 
-/* ---- NEW: artist image resolver (supports relative paths or full URLs) ---- */
+/* ---- Artist image resolver (supports relative paths or full URLs) ---- */
 function getArtistImageSrc(a) {
   const src = a?.image || a?.imageUrl || a?.photo || "";
   if (!src) return "";
-  // Allow absolute URLs or relative paths (e.g., "assets/artists/artist-xxx.jpg")
   return String(src);
 }
 
-/* ---- NEW: more robust artist search across new fields ---- */
+/* ---- News image resolver (supports relative paths or full URLs) ---- */
+function getNewsImageSrc(n) {
+  const src = n?.image || n?.imageUrl || "";
+  if (!src) return "";
+  return String(src);
+}
+
+/* ---- Search ---- */
+
 function artistMatchesSearch(a, q) {
   if (!q) return true;
   const hay = [
@@ -102,6 +111,18 @@ function eventMatchesSearch(e, q, areaId) {
   return hay.includes(q.toLowerCase());
 }
 
+function newsMatchesSearch(n, q) {
+  if (!q) return true;
+  const hay = [
+    n.title,
+    n.type,
+    n.blurb,
+    n.body,
+    ...(n.tags || [])
+  ].join(" ").toLowerCase();
+  return hay.includes(q.toLowerCase());
+}
+
 /* ---------- Render blocks ---------- */
 
 function renderEventRow(e) {
@@ -122,7 +143,6 @@ function renderEventRow(e) {
   `;
 }
 
-/* ---- UPDATED: artist rows now show image thumbs when available ---- */
 function renderArtistRow(a) {
   const tags = (a.tags || []).slice(0, 4);
   const img = getArtistImageSrc(a);
@@ -150,6 +170,60 @@ function renderArtistRow(a) {
   `;
 }
 
+/* ---- NEW: News row renderer (Tumblr-ish) ---- */
+function renderNewsRow(n) {
+  const img = getNewsImageSrc(n);
+
+  const date = n.date ? fmtDate(n.date) : "";
+  const typeChip = n.type ? `<span class="chip">${safe(n.type)}</span>` : "";
+
+  let artistLink = "";
+  if (n.artistId) {
+    const a = (window.VERRE_DATA?.artists || []).find(x => x.id === n.artistId);
+    if (a) artistLink = ` • <a href="artist.html?id=${encodeURIComponent(a.id)}">${safe(a.name)}</a>`;
+  }
+
+  const tags = (n.tags || []).slice(0, 8);
+
+  const media = img
+    ? `
+      <div style="margin:10px 0 12px; border-radius:16px; overflow:hidden; background:rgba(0,0,0,.04);">
+        <img src="${safe(img)}" alt="${safe(n.title)}" loading="lazy" style="display:block; width:100%; height:auto;" />
+      </div>
+    `
+    : ``;
+
+  const links = (n.links || []).map(l =>
+    `<a class="chip" href="${safe(l.url)}" target="_blank" rel="noopener">${safe(l.label)}</a>`
+  ).join("");
+
+  return `
+    <div class="item">
+      <div class="thumb">POST</div>
+      <div class="info">
+        <div class="row" style="margin-top:0;">
+          ${typeChip}
+          ${date ? `<span class="chip">${safe(date)}</span>` : ``}
+        </div>
+
+        <div class="title" style="margin-top:6px;">${safe(n.title || "")}</div>
+
+        ${n.blurb ? `<p class="sub" style="margin:6px 0 0; opacity:.95;">${safe(n.blurb)}</p>` : ``}
+        ${artistLink ? `<p class="sub" style="margin:6px 0 0;">${artistLink}</p>` : ``}
+
+        ${media}
+
+        ${n.body ? `<p class="sub" style="margin:0; white-space:pre-wrap; line-height:1.6;">${safe(n.body)}</p>` : ``}
+
+        <div class="row">
+          ${tags.map(t => `<span class="chip">${safe(t)}</span>`).join("")}
+          ${links}
+        </div>
+      </div>
+    </div>
+  `;
+}
+
 /* ---------- Pages ---------- */
 
 function mountHome() {
@@ -171,6 +245,16 @@ function mountHome() {
     homeArtists.innerHTML = artists.length
       ? artists.map(renderArtistRow).join("")
       : `<p class="sub">No artists listed yet.</p>`;
+  }
+
+  const homeNews = $("#homeNews");
+  if (homeNews) {
+    const posts = (window.VERRE_DATA?.news || []).slice()
+      .sort((a, b) => (b.date || "").localeCompare(a.date || ""))
+      .slice(0, 3);
+    homeNews.innerHTML = posts.length
+      ? posts.map(renderNewsRow).join("")
+      : `<p class="sub">No news posts yet.</p>`;
   }
 }
 
@@ -224,7 +308,28 @@ function mountArtistsList() {
   paint();
 }
 
-/* ---- UPDATED: Artist detail now shows image + origin + background ---- */
+function mountNewsList() {
+  setLastUpdated();
+
+  const list = $("#newsList");
+  const search = $("#newsSearch");
+
+  function paint() {
+    const q = search ? search.value.trim() : "";
+    const items = (window.VERRE_DATA?.news || [])
+      .slice()
+      .sort((a, b) => (b.date || "").localeCompare(a.date || ""))
+      .filter(n => newsMatchesSearch(n, q));
+
+    list.innerHTML = items.length
+      ? items.map(renderNewsRow).join("")
+      : `<p class="sub">No news posts yet.</p>`;
+  }
+
+  if (search) search.addEventListener("input", paint);
+  paint();
+}
+
 function mountArtistDetail() {
   setLastUpdated();
 
@@ -315,7 +420,6 @@ function mountArtistDetail() {
   `;
 }
 
-/* ✅ HERO-ONLY EVENT DETAIL (no meta dump) + DJ tag */
 function mountEventDetail(){
   const id = qs("id");
   const e = (window.VERRE_DATA?.events || []).find(x => x.id === id);
@@ -331,10 +435,6 @@ function mountEventDetail(){
   const lineup = (e.lineup && e.lineup.length) ? e.lineup : [];
   const isDJ = (e.notes || "").toLowerCase().includes("dj");
 
-  /* NOTE:
-     Leaving these buttons as-is so your site stays flexible.
-     If you want "no ticket links" at all, just don’t set `ticketUrl` in data.js.
-  */
   const actions = `
     <div class="row" style="margin-top:0">
       ${e.ticketUrl ? `<a class="btn primary" href="${safe(e.ticketUrl)}" target="_blank" rel="noopener">Tickets</a>` : ""}
@@ -404,6 +504,7 @@ function boot(){
   if (page === "home") return mountHome();
   if (page === "events") return mountEventsList();
   if (page === "artists") return mountArtistsList();
+  if (page === "news") return mountNewsList();
   if (page === "artist") return mountArtistDetail();
   if (page === "event") return mountEventDetail();
   // press page can stay static
