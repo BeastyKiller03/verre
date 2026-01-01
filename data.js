@@ -4,7 +4,7 @@
 // Events require real sources or ticket links.
 
 window.VERRE_DATA = {
-  lastUpdated: "2025-12-19",
+  lastUpdated: "2025-12-31",
 
   /* ---------- AREAS ---------- */
   areas: [
@@ -268,8 +268,6 @@ window.VERRE_DATA = {
       blurb: "Alt-indie songwriter orbiting the current NY/LA crossover scene.",
       relatedPosts: []
     },
-
-    /* --- ADDED --- */
     {
       id: "charli-xcx",
       name: "Charli XCX",
@@ -292,6 +290,19 @@ window.VERRE_DATA = {
       background:
         "Defined a blueprint for modern experimental pop/club sound; her influence runs through today’s hyperpop and underground electronic scenes.",
       image: "assets/artists/artist-sophie.jpg",
+      relatedPosts: []
+    },
+
+    /* --- ADDED --- */
+    {
+      id: "techg1rls",
+      name: "techg1rls",
+      tags: ["underground", "club", "scene"],
+      links: { instagram: "" },
+      blurb: "Underground club-adjacent project tied to the modern sleaze / internet nightlife overlap.",
+      origin: "",
+      background: "",
+      image: "assets/artists/artist-techg1rls.jpg",
       relatedPosts: []
     }
   ],
