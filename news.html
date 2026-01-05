@@ -6,39 +6,68 @@
   <title>VERRE — News</title>
   <link rel="stylesheet" href="style.css" />
 </head>
-<body data-page="news">
 
-  <header class="top-bar">
-    <div class="top-corner-title">
-      <a href="index.html">VERRE</a>
+<body data-page="news">
+  <!-- Flag corners (same as index) -->
+  <div class="flag-corner tl" aria-hidden="true"></div>
+  <div class="flag-corner br" aria-hidden="true"></div>
+
+  <!-- Use the SAME topbar/nav structure as your modern index -->
+  <div class="topbar">
+    <div class="nav">
+      <a class="brand" href="index.html" aria-label="VERRE home">
+        <img class="logo" src="assets/brand/verre.png" alt="VERRE logo" />
+      </a>
+
+      <div class="menu">
+        <a href="events.html">Events</a>
+        <a href="artists.html">Artists</a>
+        <a href="news.html">News</a>
+        <a href="press.html">Press</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <!-- Tumblr-style header block -->
+    <div class="hero">
+      <h1>news</h1>
+      <p>posts, scene notes, wins, and archive updates. short-form. no spam.</p>
+
+      <div class="meta">
+        <span class="pill">Last updated: <strong id="lastUpdated"></strong></span>
+        <a class="btn" href="https://www.instagram.com/verreeeeeeeeee/" target="_blank" rel="noopener">@verreeeeeeeeee</a>
+      </div>
     </div>
 
-    <nav class="menu">
-      <a href="events.html">Events</a>
-      <a href="artists.html">Artists</a>
-      <a href="news.html">News</a>
-      <a href="press.html">Press</a>
-    </nav>
-  </header>
-
-  <main class="wrap">
+    <!-- Feed -->
     <div class="card">
       <div class="hd">
-        <h2>News</h2>
-        <span class="chip">latest</span>
-      </div>
-
-      <div class="bd">
+        <h2>Latest posts</h2>
         <div class="row" style="margin-top:0;">
           <input id="newsSearch" class="input" placeholder="Search news…" />
         </div>
+      </div>
 
+      <div class="bd">
         <div id="newsList" class="list"></div>
       </div>
 
-      <div class="ft">Last updated: <span id="lastUpdated"></span></div>
+      <div class="ft">Archive-first. This feed is curated.</div>
     </div>
-  </main>
+
+    <!-- Footer matches your index vibe -->
+    <div class="footer">
+      <div>© VERRE • Archive-first • USA theme</div>
+      <div>
+        <a class="smalllink" href="press.html">Submissions</a>
+        &nbsp;•&nbsp;
+        <a class="smalllink" href="events.html">Events</a>
+        &nbsp;•&nbsp;
+        <a class="smalllink" href="artists.html">Artists</a>
+      </div>
+    </div>
+  </div>
 
   <script src="data.js"></script>
   <script src="app.js"></script>
