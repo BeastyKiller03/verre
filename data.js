@@ -15,6 +15,8 @@ window.VERRE_DATA = {
   ],
 
   /* ---------- ARTISTS ---------- */
+  // NOTE: I normalized all artist IDs to lowercase + hyphenated for consistency.
+  // Image paths kept exactly as you wrote them (except the Damon R newline bug fixed).
   artists: [
     {
       id: "suzy-sheer",
@@ -61,8 +63,7 @@ window.VERRE_DATA = {
       origin: "Los Angeles, California",
       background:
         "Hybrid DJ/producer energy; shows up on underground lineups bridging club momentum and pop-adjacent sound design.",
-      image: "assets/artists/artist-Damon-R.jpg
-",
+      image: "assets/artists/artist-Damon-R.jpg",
       relatedPosts: []
     },
     {
@@ -83,6 +84,8 @@ window.VERRE_DATA = {
       tags: ["alt pop", "club", "scene"],
       links: { instagram: "https://www.instagram.com/2hollis/" },
       blurb: "High-gloss alt-pop and club crossover anchoring the current scene.",
+      origin: "",
+      background: "",
       image: "assets/artists/artist-2hollis.jpg",
       relatedPosts: []
     },
@@ -92,6 +95,8 @@ window.VERRE_DATA = {
       tags: ["hyperpop", "alt", "emo"],
       links: { instagram: "https://www.instagram.com/nate_sib/" },
       blurb: "LA-rooted hyperpop/alt voice with heavy scene overlap.",
+      origin: "",
+      background: "",
       image: "assets/artists/artist-nate-sib.jpg",
       relatedPosts: []
     },
@@ -125,6 +130,8 @@ window.VERRE_DATA = {
       tags: ["indie sleaze", "electronic", "club"],
       links: { instagram: "https://www.instagram.com/snowstrippers/" },
       blurb: "Dark pop minimalism with sleaze-era club aesthetics.",
+      origin: "",
+      background: "",
       image: "assets/artists/artist-Snow-Strippers.jpg",
       relatedPosts: []
     },
@@ -134,6 +141,8 @@ window.VERRE_DATA = {
       tags: ["indie", "alt", "band"],
       links: { instagram: "https://www.instagram.com/wearedres_/" },
       blurb: "Alt band with crossover appeal into electronic-adjacent scenes.",
+      origin: "",
+      background: "",
       image: "assets/artists/artist-DRES.jpg",
       relatedPosts: []
     },
@@ -150,7 +159,7 @@ window.VERRE_DATA = {
       relatedPosts: []
     },
     {
-      id: "Petal-Supply",
+      id: "petal-supply",
       name: "Petal Supply",
       tags: ["hyperpop", "dj", "internet"],
       links: { instagram: "https://www.instagram.com/petalsupplyco/" },
@@ -174,7 +183,7 @@ window.VERRE_DATA = {
       relatedPosts: []
     },
     {
-      id: "The-Dare",
+      id: "the-dare",
       name: "The Dare",
       tags: ["indie sleaze", "dance-punk", "club"],
       links: { instagram: "https://www.instagram.com/itsthedare/" },
@@ -191,15 +200,19 @@ window.VERRE_DATA = {
       tags: ["underground", "dj", "scene"],
       links: { instagram: "https://www.instagram.com/atlgrandma/" },
       blurb: "DIY club presence tied to underground circuits and regional scenes.",
+      origin: "",
+      background: "",
       image: "assets/artists/artist-atlgrandma.jpg",
       relatedPosts: []
     },
     {
-      id: "Perto",
+      id: "perto",
       name: "Perto",
       tags: ["underground", "electronic", "experimental"],
       links: { instagram: "https://www.instagram.com/iamperto/" },
       blurb: "Underground electronic project with club-forward crossover energy.",
+      origin: "",
+      background: "",
       image: "assets/artists/artist-Perto.jpg",
       relatedPosts: []
     },
@@ -209,6 +222,8 @@ window.VERRE_DATA = {
       tags: ["dj", "club", "experimental"],
       links: { instagram: "https://www.instagram.com/youngkimj/" },
       blurb: "DJ/producer appearing across underground and hybrid club lineups.",
+      origin: "",
+      background: "",
       image: "assets/artists/artist-kimj.jpg",
       relatedPosts: []
     },
@@ -218,29 +233,35 @@ window.VERRE_DATA = {
       tags: ["electronic", "underground", "dj"],
       links: { instagram: "https://www.instagram.com/extrsmll/" },
       blurb: "DIY electronic project with low-profile underground reach.",
+      origin: "",
+      background: "",
       image: "assets/artists/artist-Extra-Small.jpg",
       relatedPosts: []
     },
     {
-      id: "Effie",
+      id: "effie",
       name: "Effie",
       tags: ["electroclash", "club", "icon"],
       links: { instagram: "https://www.instagram.com/effi3e/" },
       blurb: "Electroclash-era icon whose influence still echoes in modern club spaces.",
+      origin: "",
+      background: "",
       image: "assets/artists/artist-Effie.jpg",
       relatedPosts: []
     },
     {
-      id: "The-Deep",
+      id: "the-deep",
       name: "The Deep",
       tags: ["underground", "electronic", "collective"],
       links: { instagram: "https://www.instagram.com/thedeeeep/" },
       blurb: "Underground electronic project/collective with scene-driven presence.",
+      origin: "",
+      background: "",
       image: "assets/artists/artist-The-Deep.jpg",
       relatedPosts: []
     },
     {
-      id: "SEBii",
+      id: "sebii",
       name: "SEBii",
       tags: ["hyperpop", "emo", "internet"],
       links: { instagram: "https://www.instagram.com/sebseb122/" },
@@ -264,20 +285,24 @@ window.VERRE_DATA = {
       relatedPosts: []
     },
     {
-      id: "Jane-Remover",
+      id: "jane-remover",
       name: "Jane Remover",
       tags: ["hyperpop", "shoegaze", "experimental"],
       links: { instagram: "https://www.instagram.com/janeremover/" },
       blurb: "Genre-defying artist moving between hyperpop, emo, and shoegaze.",
+      origin: "",
+      background: "",
       image: "assets/artists/artist-Jane-Remover.jpg",
       relatedPosts: []
     },
     {
-      id: "Tommy-Fleece",
+      id: "tommy-fleece",
       name: "Tommy Fleece",
       tags: ["indie", "alt", "scene"],
       links: { instagram: "https://www.instagram.com/tommysfleece/" },
       blurb: "Alt-indie songwriter orbiting the current NY/LA crossover scene.",
+      origin: "",
+      background: "",
       image: "assets/artists/artist-Tommy-Fleece.jpg",
       relatedPosts: []
     },
@@ -305,8 +330,6 @@ window.VERRE_DATA = {
       image: "assets/artists/artist-SOPHIE.jpg",
       relatedPosts: []
     },
-
-    /* --- ADDED --- */
     {
       id: "techg1rls",
       name: "techg1rls",
@@ -319,6 +342,10 @@ window.VERRE_DATA = {
       relatedPosts: []
     }
   ],
+
+  /* ---------- NEWS ---------- */
+  // Start empty (or add posts later). This prevents undefined on the news page.
+  news: [],
 
   /* ---------- EVENTS ---------- */
   events: [
@@ -338,6 +365,24 @@ window.VERRE_DATA = {
       lineup: ["umru", "Petal Supply"],
       verreAttending: false,
       notes: "DJ event. New Years Eve."
+    },
+
+    /* ✅ Placeholder so your “Upcoming” section shows something in 2026 */
+    {
+      id: "test-la-afterhours-2026-01",
+      title: "TEST — LA After Hours (placeholder)",
+      date: "2026-01-20",
+      time: "11:30 PM",
+      area: "la",
+      venue: "TBA",
+      address: "TBA",
+      ticketUrl: "",
+      sourceUrl: "",
+      flyerUrl: "",
+      lineup: ["Suzy Sheer"],
+      verreAttending: false,
+      notes: "DJ event. Placeholder to confirm site rendering."
     }
   ]
 };
+
