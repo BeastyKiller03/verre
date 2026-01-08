@@ -61,7 +61,8 @@ window.VERRE_DATA = {
       origin: "Los Angeles, California",
       background:
         "Hybrid DJ/producer energy; shows up on underground lineups bridging club momentum and pop-adjacent sound design.",
-      image: "assets/artists/artist-damon-r..jpg",
+      image: "assets/artists/artist-damon-r..jpg
+",
       relatedPosts: []
     },
     {
