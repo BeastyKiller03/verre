@@ -599,3 +599,78 @@ body[data-page="event"] #detail .card .ft{
 body[data-page="event"] .wrap > .footer{
   color: var(--muted);
 }
+/* =========================
+   MOBILE DROPDOWN NAV
+   (Straight + sized to "Submissions")
+========================= */
+
+/* Hide the mobile button on desktop by default */
+.menuBtn { display: none; }
+
+/* Burger icon */
+.burger{
+  width: 18px;
+  height: 12px;
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center; /* centers lines horizontally */
+}
+.burger span{
+  display: block;
+  width: 18px;
+  height: 2px;
+  background: var(--fg);
+  border-radius: 2px;
+  opacity: 0.9;
+}
+
+/* Button styling (not boxy) */
+.menuBtn{
+  border: 1px solid var(--line);
+  background: rgba(10,49,97,0.03);
+  color: var(--fg);
+  height: 40px;
+  width: 44px;
+  border-radius: 999px; /* keep bubble */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center; /* centers burger */
+  padding: 0;
+}
+
+/* Mobile dropdown panel */
+.menuPanel{
+  position: absolute;
+  top: 64px;            /* sits under topbar */
+  right: var(--pad);
+  width: max-content;   /* fit to longest word */
+  min-width: 150px;     /* roughly fits “Submissions” */
+  background: rgba(255,255,255,0.96);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--line);
+  border-radius: 8px;   /* straighter edges */
+  padding: 8px;
+  display: none;
+  box-shadow: 0 10px 30px rgba(10,22,51,0.12);
+}
+
+/* Links inside panel */
+.menuPanel a{
+  display: block;
+  padding: 10px 12px;
+  border-radius: 6px;
+  color: var(--fg);
+  font-size: 14px;
+  white-space: nowrap;
+}
+.menuPanel a:hover{
+  background: rgba(10,49,97,0.05);
+  opacity: 1;
+}
+
+/* Show only on mobile */
+@media (max-width: 720px){
+  .menu { display: none; }    /* hide desktop links */
+  .menuBtn { display: inline-flex; }
+}
