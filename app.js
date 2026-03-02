@@ -37,17 +37,17 @@ function updatePillText(){
   const pill = document.getElementById("instructionsPill");
   if (pill) {
     if (window.innerWidth <= 430) {
-      pill.textContent = 'Tap an artist for more info';
+      pill.textContent = "Tap an artist for more info";
     } else {
-      pill.textContent = 'Click an artist for links + tracked events';
+      pill.textContent = "Click an artist for links + tracked events";
     }
   }
 }
 
 updatePillText();
-window.addEventListener('resize', updatePillText);
+window.addEventListener("resize", updatePillText);
 
-/* ✅ Mobile dropdown menu controller */
+/* ✅ Mobile dropdown menu controller (single source of truth) */
 function setupMobileMenu(){
   const btn = document.getElementById("menuBtn");
   const panel = document.getElementById("menuPanel");
@@ -55,11 +55,13 @@ function setupMobileMenu(){
 
   const open = () => {
     panel.classList.add("open");
+    panel.setAttribute("aria-hidden", "false");
     btn.setAttribute("aria-expanded", "true");
   };
 
   const close = () => {
     panel.classList.remove("open");
+    panel.setAttribute("aria-hidden", "true");
     btn.setAttribute("aria-expanded", "false");
   };
 
@@ -89,19 +91,30 @@ function setupMobileMenu(){
   panel.querySelectorAll("a").forEach(a => {
     a.addEventListener("click", () => close());
   });
+
+  // Ensure initial ARIA state
+  panel.setAttribute("aria-hidden", panel.classList.contains("open") ? "false" : "true");
+  btn.setAttribute("aria-expanded", panel.classList.contains("open") ? "true" : "false");
 }
 
-/* ✅ Active nav works on list + detail pages */
+/* ✅ Active nav works on list + detail pages (desktop + mobile panel) */
 function setActiveNav() {
   const page = (document.body.getAttribute("data-page") || "").toLowerCase();
-  document.querySelectorAll(".menu a").forEach(a => {
+
+  // grab ALL nav links from desktop + panel
+  const links = document.querySelectorAll(".menu a, .menu-links a, .menu-panel a");
+
+  links.forEach(a => {
+    a.classList.remove("active");
     const href = (a.getAttribute("href") || "").toLowerCase();
+
     const isActive =
       ((page === "events" || page === "event") && href.includes("events")) ||
       ((page === "artists" || page === "artist") && href.includes("artists")) ||
       (page === "news" && href.includes("news")) ||
-      (page === "press" && href.includes("press")) ||
+      (page === "press" && (href.includes("press") || href.includes("submit"))) ||
       (page === "archive" && href.includes("archive"));
+
     if (isActive) a.classList.add("active");
   });
 }
@@ -109,30 +122,6 @@ function setActiveNav() {
 function setLastUpdated() {
   const el = $("#lastUpdated");
   if (el && window.VERRE_DATA?.lastUpdated) el.textContent = window.VERRE_DATA.lastUpdated;
-}
-function mountMobileMenu(){
-  const btn = document.getElementById("menuBtn");
-  const panel = document.getElementById("menuPanel");
-  if (!btn || !panel) return;
-
-  function close(){
-    panel.style.display = "none";
-    btn.setAttribute("aria-expanded", "false");
-  }
-
-  function toggle(){
-    const open = panel.style.display === "block";
-    panel.style.display = open ? "none" : "block";
-    btn.setAttribute("aria-expanded", open ? "false" : "true");
-  }
-
-  btn.addEventListener("click", (e) => {
-    e.stopPropagation();
-    toggle();
-  });
-
-  document.addEventListener("click", close);
-  panel.addEventListener("click", (e) => e.stopPropagation());
 }
 
 /* ---------- Data helpers ---------- */
@@ -503,33 +492,33 @@ function mountArtistDetail() {
         <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:16px; flex-wrap:wrap;">
           <div style="display:flex; gap:14px; align-items:flex-start; min-width:260px; flex:1;">
             <div style="width:96px; height:96px; border-radius:14px; overflow:hidden; background:rgba(0,0,0,.04); flex:0 0 auto; position:relative;">
-  ${
-    img
-      ? `<img
-          src="${safe(img)}"
-          alt="${safe(a.name)}"
-          style="width:100%; height:100%; object-fit:cover; display:block;"
-          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
-        />`
-      : ``
-  }
+              ${
+                img
+                  ? `<img
+                      src="${safe(img)}"
+                      alt="${safe(a.name)}"
+                      style="width:100%; height:100%; object-fit:cover; display:block;"
+                      onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                    />`
+                  : ``
+              }
 
-  <div
-    style="
-      display:${img ? "none" : "flex"};
-      width:100%;
-      height:100%;
-      align-items:center;
-      justify-content:center;
-      font-size:10px;
-      letter-spacing:.08em;
-      text-transform:uppercase;
-      color:var(--muted);
-    "
-  >
-    No photo (yet)
-  </div>
-</div>
+              <div
+                style="
+                  display:${img ? "none" : "flex"};
+                  width:100%;
+                  height:100%;
+                  align-items:center;
+                  justify-content:center;
+                  font-size:10px;
+                  letter-spacing:.08em;
+                  text-transform:uppercase;
+                  color:var(--muted);
+                "
+              >
+                No photo (yet)
+              </div>
+            </div>
 
             <div style="min-width:220px; flex:1;">
               <h1 style="margin:0 0 6px; font-size:28px; line-height:1.1;">
@@ -589,14 +578,14 @@ function mountEventDetail(){
 
   const actions = `
     <div class="row" style="margin-top:0">
-${
-  (e.ticketUrl && e.sourceUrl && e.ticketUrl === e.sourceUrl)
-    ? `<a class="btn primary" href="${safe(e.ticketUrl)}" target="_blank" rel="noopener">Event page</a>`
-    : `
-      ${e.ticketUrl ? `<a class="btn primary" href="${safe(e.ticketUrl)}" target="_blank" rel="noopener">Tickets</a>` : ""}
-      ${e.sourceUrl ? `<a class="btn" href="${safe(e.sourceUrl)}" target="_blank" rel="noopener">Source</a>` : ""}
-    `
-}
+      ${
+        (e.ticketUrl && e.sourceUrl && e.ticketUrl === e.sourceUrl)
+          ? `<a class="btn primary" href="${safe(e.ticketUrl)}" target="_blank" rel="noopener">Event page</a>`
+          : `
+            ${e.ticketUrl ? `<a class="btn primary" href="${safe(e.ticketUrl)}" target="_blank" rel="noopener">Tickets</a>` : ""}
+            ${e.sourceUrl ? `<a class="btn" href="${safe(e.sourceUrl)}" target="_blank" rel="noopener">Source</a>` : ""}
+          `
+      }
       <a class="btn" href="events.html">Back to events</a>
     </div>
   `;
@@ -610,7 +599,6 @@ ${
       : `<span class="chip">${safe(name)}</span>`;
   }).join(" ");
 
-  // ✅ NEW: flyer block
   const flyerBlock = e.flyerUrl
     ? `
       <hr class="sep">
@@ -679,8 +667,9 @@ ${
 /* ---------- Boot ---------- */
 
 function boot(){
-  setupMobileMenu();   // ✅ add this
+  setupMobileMenu();
   setActiveNav();
+
   const page = (document.body.getAttribute("data-page") || "").toLowerCase();
 
   if (page === "home") return mountHome();
