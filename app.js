@@ -32,6 +32,65 @@ function fmtDate(iso) {
   return d.toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" });
 }
 
+/* Responsive: Instructions pill */
+function updatePillText(){
+  const pill = document.getElementById("instructionsPill");
+  if (pill) {
+    if (window.innerWidth <= 430) {
+      pill.textContent = 'Tap an artist for more info';
+    } else {
+      pill.textContent = 'Click an artist for links + tracked events';
+    }
+  }
+}
+
+updatePillText();
+window.addEventListener('resize', updatePillText);
+
+/* ✅ Mobile dropdown menu controller */
+function setupMobileMenu(){
+  const btn = document.getElementById("menuBtn");
+  const panel = document.getElementById("menuPanel");
+  if (!btn || !panel) return;
+
+  const open = () => {
+    panel.classList.add("open");
+    btn.setAttribute("aria-expanded", "true");
+  };
+
+  const close = () => {
+    panel.classList.remove("open");
+    btn.setAttribute("aria-expanded", "false");
+  };
+
+  const toggle = () => {
+    panel.classList.contains("open") ? close() : open();
+  };
+
+  btn.addEventListener("click", (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    toggle();
+  });
+
+  // Close when clicking outside
+  document.addEventListener("click", (e) => {
+    if (!panel.classList.contains("open")) return;
+    if (panel.contains(e.target) || btn.contains(e.target)) return;
+    close();
+  });
+
+  // Close on ESC
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") close();
+  });
+
+  // Close after selecting a link
+  panel.querySelectorAll("a").forEach(a => {
+    a.addEventListener("click", () => close());
+  });
+}
+
 /* ✅ Active nav works on list + detail pages */
 function setActiveNav() {
   const page = (document.body.getAttribute("data-page") || "").toLowerCase();
@@ -41,7 +100,8 @@ function setActiveNav() {
       ((page === "events" || page === "event") && href.includes("events")) ||
       ((page === "artists" || page === "artist") && href.includes("artists")) ||
       (page === "news" && href.includes("news")) ||
-      (page === "press" && href.includes("press"));
+      (page === "press" && href.includes("press")) ||
+      (page === "archive" && href.includes("archive"));
     if (isActive) a.classList.add("active");
   });
 }
@@ -128,15 +188,35 @@ function newsMatchesSearch(n, q) {
 function renderEventRow(e) {
   const area = eventAreaName(e);
   const lineup = (e.lineup || []).join(", ");
+
+  const thumb = e.flyerUrl
+    ? `<img
+         src="${safe(e.flyerUrl)}"
+         alt="${safe(e.title)} flyer"
+         loading="lazy"
+         style="width:100%; height:100%; object-fit:cover; border-radius:12px; display:block;"
+       />`
+    : `EVENT`;
+
   return `
     <div class="item">
-      <div class="thumb">EVENT</div>
+      <div class="thumb" style="overflow:hidden;">
+        ${thumb}
+      </div>
+
       <div class="info">
         <div class="title">
           <a href="event.html?id=${encodeURIComponent(e.id)}">${safe(e.title)}</a>
         </div>
-        <p class="sub">${safe(fmtDate(e.date))}${e.time ? ` • ${safe(e.time)}` : ""} • ${safe(area)}</p>
-        <p class="sub">${safe(e.venue || "")}${e.venue && e.address ? " • " : ""}${safe(e.address || "")}</p>
+
+        <p class="sub">
+          ${safe(fmtDate(e.date))}${e.time ? ` • ${safe(e.time)}` : ""} • ${safe(area)}
+        </p>
+
+        <p class="sub">
+          ${safe(e.venue || "")}${e.venue && e.address ? " • " : ""}${safe(e.address || "")}
+        </p>
+
         ${lineup ? `<div class="row"><span class="chip">${safe(lineup)}</span></div>` : ""}
       </div>
     </div>
@@ -147,15 +227,42 @@ function renderArtistRow(a) {
   const tags = (a.tags || []).slice(0, 4);
   const img = getArtistImageSrc(a);
 
-  const thumb = img
-    ? `<img src="${safe(img)}" alt="${safe(a.name)}" loading="lazy" style="width:100%; height:100%; object-fit:cover; border-radius:12px;" />`
-    : `ARTIST`;
+  const thumb = `
+    <div class="thumb" style="overflow:hidden; position:relative;">
+      ${
+        img
+          ? `<img
+              src="${safe(img)}"
+              alt="${safe(a.name)}"
+              loading="lazy"
+              style="width:100%; height:100%; object-fit:cover; border-radius:12px;"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+            />`
+          : ``
+      }
+      <div
+        style="
+          display:${img ? "none" : "flex"};
+          width:100%;
+          height:100%;
+          align-items:center;
+          justify-content:center;
+          font-size:11px;
+          letter-spacing:.08em;
+          text-transform:uppercase;
+          color:var(--muted);
+          background:rgba(0,0,0,.04);
+          border-radius:12px;
+        "
+      >
+        No photo (yet)
+      </div>
+    </div>
+  `;
 
   return `
     <div class="item">
-      <div class="thumb" style="overflow:hidden;">
-        ${thumb}
-      </div>
+      ${thumb}
       <div class="info">
         <div class="title">
           <a href="artist.html?id=${encodeURIComponent(a.id)}">${safe(a.name)}</a>
@@ -371,13 +478,34 @@ function mountArtistDetail() {
       <div class="bd">
         <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:16px; flex-wrap:wrap;">
           <div style="display:flex; gap:14px; align-items:flex-start; min-width:260px; flex:1;">
-            ${
-              img
-                ? `<div style="width:96px; height:96px; border-radius:14px; overflow:hidden; background:rgba(0,0,0,.04); flex:0 0 auto;">
-                    <img src="${safe(img)}" alt="${safe(a.name)}" style="width:100%; height:100%; object-fit:cover;" />
-                   </div>`
-                : ``
-            }
+            <div style="width:96px; height:96px; border-radius:14px; overflow:hidden; background:rgba(0,0,0,.04); flex:0 0 auto; position:relative;">
+  ${
+    img
+      ? `<img
+          src="${safe(img)}"
+          alt="${safe(a.name)}"
+          style="width:100%; height:100%; object-fit:cover; display:block;"
+          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+        />`
+      : ``
+  }
+
+  <div
+    style="
+      display:${img ? "none" : "flex"};
+      width:100%;
+      height:100%;
+      align-items:center;
+      justify-content:center;
+      font-size:10px;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      color:var(--muted);
+    "
+  >
+    No photo (yet)
+  </div>
+</div>
 
             <div style="min-width:220px; flex:1;">
               <h1 style="margin:0 0 6px; font-size:28px; line-height:1.1;">
@@ -437,8 +565,14 @@ function mountEventDetail(){
 
   const actions = `
     <div class="row" style="margin-top:0">
+${
+  (e.ticketUrl && e.sourceUrl && e.ticketUrl === e.sourceUrl)
+    ? `<a class="btn primary" href="${safe(e.ticketUrl)}" target="_blank" rel="noopener">Event page</a>`
+    : `
       ${e.ticketUrl ? `<a class="btn primary" href="${safe(e.ticketUrl)}" target="_blank" rel="noopener">Tickets</a>` : ""}
       ${e.sourceUrl ? `<a class="btn" href="${safe(e.sourceUrl)}" target="_blank" rel="noopener">Source</a>` : ""}
+    `
+}
       <a class="btn" href="events.html">Back to events</a>
     </div>
   `;
@@ -451,6 +585,26 @@ function mountEventDetail(){
       ? `<a class="chip" href="artist.html?id=${encodeURIComponent(artist.id)}">${safe(name)}</a>`
       : `<span class="chip">${safe(name)}</span>`;
   }).join(" ");
+
+  // ✅ NEW: flyer block
+  const flyerBlock = e.flyerUrl
+    ? `
+      <hr class="sep">
+      <h3 style="margin:0 0 10px; font-size:14px; color:var(--muted); letter-spacing:.08em; text-transform:uppercase;">
+        Flyer
+      </h3>
+      <div style="border-radius:16px; overflow:hidden; background:rgba(0,0,0,.04);">
+        <a href="${safe(e.flyerUrl)}" target="_blank" rel="noopener">
+          <img
+            src="${safe(e.flyerUrl)}"
+            alt="${safe(e.title)} flyer"
+            loading="lazy"
+            style="display:block; width:100%; height:auto;"
+          />
+        </a>
+      </div>
+    `
+    : ``;
 
   root.innerHTML = `
     <div class="card">
@@ -472,6 +626,7 @@ function mountEventDetail(){
             </p>
 
             ${e.venue ? `<p class="sub" style="margin:6px 0 0; opacity:.9;">${safe(e.venue)}</p>` : ``}
+            ${e.address ? `<p class="sub" style="margin:6px 0 0; opacity:.9;">${safe(e.address)}</p>` : ``}
           </div>
 
           <div style="flex:0 0 auto; min-width:220px;">
@@ -488,6 +643,8 @@ function mountEventDetail(){
             ${linkedLineup}
           </div>
         ` : ``}
+
+        ${flyerBlock}
       </div>
 
       <div class="ft">Last updated: ${safe(window.VERRE_DATA?.lastUpdated || "")}</div>
@@ -498,6 +655,7 @@ function mountEventDetail(){
 /* ---------- Boot ---------- */
 
 function boot(){
+  setupMobileMenu();   // ✅ add this
   setActiveNav();
   const page = (document.body.getAttribute("data-page") || "").toLowerCase();
 
