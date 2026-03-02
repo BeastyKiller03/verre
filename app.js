@@ -110,6 +110,30 @@ function setLastUpdated() {
   const el = $("#lastUpdated");
   if (el && window.VERRE_DATA?.lastUpdated) el.textContent = window.VERRE_DATA.lastUpdated;
 }
+function mountMobileMenu(){
+  const btn = document.getElementById("menuBtn");
+  const panel = document.getElementById("menuPanel");
+  if (!btn || !panel) return;
+
+  function close(){
+    panel.style.display = "none";
+    btn.setAttribute("aria-expanded", "false");
+  }
+
+  function toggle(){
+    const open = panel.style.display === "block";
+    panel.style.display = open ? "none" : "block";
+    btn.setAttribute("aria-expanded", open ? "false" : "true");
+  }
+
+  btn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    toggle();
+  });
+
+  document.addEventListener("click", close);
+  panel.addEventListener("click", (e) => e.stopPropagation());
+}
 
 /* ---------- Data helpers ---------- */
 
