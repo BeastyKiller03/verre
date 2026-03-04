@@ -624,3 +624,37 @@ body[data-page="event"] .wrap > .footer{
 .menu-panel a{
   text-align:right;
 }
+/* ===== BURGER BUTTON FIX ===== */
+
+/* tighten bubble around icon */
+.menu-btn{
+  width:36px;
+  height:36px;
+  padding:0;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+}
+
+/* center burger perfectly */
+.menu-btn .burger{
+  width:16px;
+  height:10px;
+}
+
+.menu-btn .burger span{
+  width:16px;
+}
+
+
+/* ===== DROPDOWN ALIGNMENT FIX ===== */
+
+.menu-panel{
+  padding:6px;           /* smaller container padding */
+  min-width:130px;       /* tighter panel width */
+}
+
+.menu-panel a{
+  padding:8px 10px;      /* removes extra left space */
+  text-align:right;
+}
