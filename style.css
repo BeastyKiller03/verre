@@ -588,3 +588,39 @@ body[data-page="event"] #detail .card .ft{
 body[data-page="event"] .wrap > .footer{
   color: var(--muted);
 }
+/* ===== MOBILE MENU FIX (Safari-safe) ===== */
+
+/* Make sure the button actually renders on mobile */
+@media (max-width: 720px){
+  .menu-btn{
+    display:inline-flex !important;
+  }
+}
+
+/* Force burger icon to be visible */
+.menu-btn .burger{
+  width:18px;
+  height:12px;
+  display:flex !important;
+  flex-direction:column;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.menu-btn .burger span{
+  display:block !important;
+  width:18px !important;
+  height:2px !important;
+  background-color: var(--fg) !important;
+  border-radius:2px;
+  opacity:1 !important;
+}
+
+/* Right-align the dropdown text */
+.menu-panel{
+  right:0;
+}
+
+.menu-panel a{
+  text-align:right;
+}
