@@ -1,4 +1,4 @@
-  <!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
@@ -35,18 +35,18 @@
           aria-label="Open menu"
           aria-controls="menuPanel"
           aria-expanded="false"
-       >
+        >
           <span class="burger" aria-hidden="true">
             <span></span><span></span><span></span>
-        </span>
-      </button>
+          </span>
+        </button>
 
-        <!-- Mobile slide-down panel -->
-    <div class="menu-links">
-  <a href="events.html">Events</a>
-  <a href="artists.html">Artists</a>
-  <a href="archive.html">Archive</a>
-</div>
+        <!-- Mobile dropdown panel -->
+        <div class="menu-panel" id="menuPanel" aria-hidden="true">
+          <a href="events.html">Events</a>
+          <a href="artists.html">Artists</a>
+          <a href="archive.html">Archive</a>
+        </div>
       </div>
     </div>
   </div>
@@ -110,5 +110,3 @@
   <script src="app.js"></script>
 </body>
 </html>
-
-
