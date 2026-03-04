@@ -115,7 +115,8 @@ img{max-width:100%; display:block}
 }
 
 /* Mobile hamburger button (hidden on desktop) */
-.menu-btn{
+/* IMPORTANT: class must match your HTML: class="menuBtn" */
+.menuBtn{
   display:none;
   appearance:none;
   border:1px solid var(--line);
@@ -131,15 +132,15 @@ img{max-width:100%; display:block}
 }
 
 /* 3-line icon (centered) */
-.menu-btn .burger{
+.menuBtn .burger{
   width:18px;
   height:12px;
-  display:inline-flex;
+  display:flex;
   flex-direction:column;
   justify-content:space-between;
   align-items:center;
 }
-.menu-btn .burger span{
+.menuBtn .burger span{
   display:block;
   width:18px;
   height:2px;
@@ -148,33 +149,40 @@ img{max-width:100%; display:block}
   opacity:0.9;
 }
 
-/* Dropdown panel (straight + sized to Submissions) */
+/* Dropdown panel:
+   - sits tight under the button
+   - grows right -> left (anchored to right edge)
+   - smaller so it doesn't cover top area
+*/
 .menu-panel{
   display:none;            /* JS toggles .open */
   position:absolute;
-  top:calc(100% + 10px);
+  top:calc(100% + 8px);
   right:0;
+
   width:max-content;       /* fit content */
-  min-width:150px;         /* fits “Submissions” */
-  max-width:76vw;
+  min-width:150px;         /* fits “Archive” comfortably */
+  max-width:72vw;
+
   border:1px solid var(--line);
-  border-radius:8px;       /* straighter */
+  border-radius:10px;      /* straighter */
   background:rgba(255,255,255,0.98);
   backdrop-filter: blur(10px);
   padding:8px;
-  box-shadow:0 10px 30px rgba(10,22,51,0.12);
+  box-shadow:0 12px 30px rgba(10,22,51,0.12);
   z-index:999;
+
   transform-origin: top right;
-  transform: translateY(-8px);
+  transform: translateY(-6px) scale(0.98);
   opacity:0;
   pointer-events:none;
-  transition: transform .18s ease, opacity .18s ease;
+  transition: transform .16s ease, opacity .16s ease;
 }
 
 .menu-panel a{
   display:block;
   padding:10px 12px;
-  border-radius:6px;
+  border-radius:8px;
   border:1px solid transparent;
   color:var(--fg);
   font-size:14px;
@@ -189,15 +197,15 @@ img{max-width:100%; display:block}
 /* open state */
 .menu-panel.open{
   display:block;
-  transform: translateY(0);
+  transform: translateY(0) scale(1);
   opacity:1;
   pointer-events:auto;
 }
 
 /* Mobile behavior */
-@media (max-width: 720px){
+@media (max-width: 680px){
   .menu-links{display:none;}
-  .menu-btn{display:inline-flex;}
+  .menuBtn{display:inline-flex;}
 }
 
 /* =========================
