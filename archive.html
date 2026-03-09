@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>VERRE — Archive</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body data-page="archive">
+  <!-- Flag corners -->
+  <div class="flag-corner tl" aria-hidden="true"></div>
+  <div class="flag-corner br" aria-hidden="true"></div>
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div class="nav">
+      <a class="brand" href="index.html" aria-label="VERRE home">
+        <img class="logo" src="assets/brand/verre.png" alt="VERRE logo" />
+      </a>
+
+      <div class="menu" aria-label="Primary navigation">
+        <!-- Desktop links -->
+        <div class="menu-links">
+          <a href="events.html">Events</a>
+          <a href="artists.html">Artists</a>
+          <a href="archive.html">Archive</a>
+        </div>
+
+        <!-- Mobile toggle -->
+        <button
+          class="menu-btn"
+          id="menuBtn"
+          type="button"
+          aria-label="Open menu"
+          aria-controls="menuPanel"
+          aria-expanded="false"
+        >
+          <span class="burger" aria-hidden="true">
+            <span></span><span></span><span></span>
+          </span>
+        </button>
+
+        <!-- Mobile dropdown panel -->
+        <div class="menu-panel" id="menuPanel" aria-hidden="true">
+          <a href="events.html">Events</a>
+          <a href="artists.html">Artists</a>
+          <a href="archive.html">Archive</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div class="wrap">
+    <div class="hero">
+      <h1>Archive</h1>
+      <p>Photo sets, scene notes, recap posts, and older moments worth revisiting.</p>
+      <div class="meta tools">
+        <div class="search">
+          <input
+            id="archiveSearch"
+            type="search"
+            placeholder="Search: artist, city, post, tag…"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="hd">
+        <h2>Archive Posts</h2>
+        <span class="pill">Tumblr / editorial format</span>
+      </div>
+
+      <div class="bd">
+        <div class="list" id="archiveList">
+
+          <!-- SAMPLE POST 1 -->
+          <article class="item" style="display:block; padding:0; overflow:hidden;">
+            <div style="padding:16px 16px 0;">
+              <p class="sub" style="margin:0 0 10px; font-family:var(--mono); text-transform:uppercase; letter-spacing:.08em;">
+                Mar 07, 2026 • Fort Lauderdale
+              </p>
+
+              <h2 style="margin:0 0 10px; font-size:34px; line-height:1.05;">
+                Xaviersobased in Fort Lauderdale
+              </h2>
+
+              <p class="sub" style="font-size:15px; line-height:1.6; max-width:760px;">
+                A recap-style archive entry built around flyer scans, set photos, screenshots,
+                and quick scene notes. Designed to feel more like a post than a database entry.
+              </p>
+
+              <div class="row" style="margin:12px 0 16px;">
+                <span class="chip">archive</span>
+                <span class="chip">photo set</span>
+                <span class="chip">scene report</span>
+              </div>
+            </div>
+
+            <div style="display:grid; gap:10px; padding:0 16px 16px;">
+              <img src="assets/flyers/flyer-party-like-2016-2026-01-30.jpg" alt="Archive image" style="width:100%; border-radius:12px; border:1px solid var(--line);" />
+              <img src="assets/flyers/flyer-fuck-cupid-h0l0-nyc-2026-02-15.jpg" alt="Archive image" style="width:100%; border-radius:12px; border:1px solid var(--line);" />
+            </div>
+
+            <div class="ft">
+              VERRE archive entry — built for recaps, visual posts, and scene memory.
+            </div>
+          </article>
+
+          <!-- SAMPLE POST 2 -->
+          <article class="item" style="display:block; padding:0; overflow:hidden;">
+            <div style="padding:16px 16px 0;">
+              <p class="sub" style="margin:0 0 10px; font-family:var(--mono); text-transform:uppercase; letter-spacing:.08em;">
+                Feb 15, 2026 • Queens, NY
+              </p>
+
+              <h2 style="margin:0 0 10px; font-size:34px; line-height:1.05;">
+                Fuck Cupid at h0l0
+              </h2>
+
+              <p class="sub" style="font-size:15px; line-height:1.6; max-width:760px;">
+                Late-night flyer-first post with stacked visuals, lineup notes, and a short written caption.
+                This format works well for parties, afters, and one-off underground bills.
+              </p>
+
+              <div class="row" style="margin:12px 0 16px;">
+                <span class="chip">nyc</span>
+                <span class="chip">flyer</span>
+                <span class="chip">nightlife</span>
+              </div>
+            </div>
+
+            <div style="display:grid; gap:10px; padding:0 16px 16px;">
+              <img src="assets/flyers/flyer-fuck-cupid-h0l0-nyc-2026-02-15.jpg" alt="Fuck Cupid flyer" style="width:100%; border-radius:12px; border:1px solid var(--line);" />
+            </div>
+
+            <div class="ft">
+              Archive post layout — title, date, caption, tags, stacked media.
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div>© VERRE • Archive-first</div>
+
+    <p class="sub" style="max-width:520px;">
+      Archive posts can hold flyers, recaps, screenshots, visuals, and older scene references.
+    </p>
+
+    <div>
+      <a class="btn" href="press.html">Submissions</a>
+    </div>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
